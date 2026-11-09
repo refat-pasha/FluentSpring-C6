@@ -1,27 +1,148 @@
 'use strict';
-// Browser-independent smoke tests for lesson functions and bindings.
-const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
-const source=fs.readFileSync('lesson.js','utf8');
-const required=['function initLesson','function renderStage','function validateMission','function submitAssessment','function renderSituation','function checkSituation','function checkRepair','function toggleTimer','function speak','function evaluateWriting','function showAssessment'];
-for(const symbol of required)assert.ok(source.includes(symbol),`Missing ${symbol}`);
-const html=fs.readFileSync('index.html','utf8');
-for(const id of ['start-lesson','timer-toggle','warmup','toolkit','mission','roleplay','extra-practice','check','mission-submit','roleplay-check','roleplay-model','situations','situation-check','repair-check','submit-assessment','reset-lesson'])assert.ok(html.includes(`id="${id}"`),`Missing HTML control #${id}`);
-for(const href of ['#mission','#extra-practice','#check'])assert.ok(html.includes(`href="${href}"`),`Missing navigation target ${href}`);
-assert.match(html,/lesson\.js/);assert.match(html,/lesson\.css/);
-let now=0;const timers=new Map();let id=0;const fakeWindow={addEventListener(type,handler){if(type==='DOMContentLoaded')this.ready=handler},setInterval(handler){const n=++id;timers.set(n,handler);return n},clearInterval(n){timers.delete(n)},scrollCalls:[],confirm(){return false}};
-const elements=new Map();function element(selector){if(!elements.has(selector)){const e={textContent:'',innerHTML:'',value:'',disabled:false,checked:false,dataset:{},attributes:{},classList:{add(){},remove(){},toggle(){}},children:[],handlers:{},addEventListener(t,f){this.handlers[t]=f},append(...children){this.children.push(...children)},appendChild(child){this.children.push(child)},replaceChildren(...children){this.children=[...children]},remove(){},scrollIntoView(){fakeWindow.scrollCalls.push(selector)},setAttribute(k,v){this.attributes[k]=v},getAttribute(k){return this.attributes[k]??null},focus(){},setSelectionRange(){},querySelectorAll(sel){return selector==='#step-tabs'?tabs:[]},querySelector(){return null},get parentElement(){return this},get scrollHeight(){return 0}};elements.set(selector,e)}return elements.get(selector)}
-const tabs=[0,1,2].map(i=>{const e=element('tab'+i);e.dataset.step=String(i);return e});const route=[0,1,2,3,4,5].map(()=>({classList:{add(){},remove(){}}}));
-const selectors=['#start-lesson','#warmup','#toolkit','#mission','#roleplay','#extra-practice','#check','#timer-toggle','#timer-display','#lesson-route','#warmup-feedback','#notice-answer','#notice-feedback','#step-tabs','#mission-scene','#mission-prompt-title','#mission-label','#mission-answer','#starter-list','#mission-feedback','#mission-submit','#mission-dialogue','#guest-voice','#voice-notice','#replay-last','#roleplay-answer','#roleplay-feedback','#roleplay-check','#roleplay-model','#submit-assessment','#reset-lesson','#situations','#situation-scene','#situation-person','#situation-line','#situation-starters','#situation-answer','#situation-feedback','#situation-dialogue','#situation-check','#situation-replay','#repair-check','#repair-feedback','#assessment-result','#exit-answer','#completion-stamp','#progress-fill','#step-label','#lesson-route li'];selectors.forEach(element);element('#guest-voice').value='female';element('#situations').value='club';element('#completion-stamp').removeAttribute=function(){};element('#step-tabs').querySelectorAll=()=>tabs;element('#lesson-route').querySelectorAll=()=>route;element('#mission-dialogue').querySelector=()=>({remove(){}});element('#situation-dialogue').querySelector=()=>null;element('#starter-list').replaceChildren=function(...c){this.children=c};element('#situation-starters').replaceChildren=function(...c){this.children=c};element('#starter-list').append=function(...c){this.children.push(...c)};element('#situation-starters').append=function(...c){this.children.push(...c)};
-const document={querySelector(selector){if(selector==='input[name="quiz1"]:checked')return quiz1;if(selector==='input[name="quiz2"]:checked')return quiz2;return element(selector)},querySelectorAll(selector){if(selector==='#lesson-route li')return route;if(selector==='.warmup-option'||selector==='.text-advance'||selector==='.hear-phrase')return [];if(selector==='.step-tab')return tabs;return []},createElement(tag){const e=element(`created-${++id}`);e.tagName=tag;return e},body:{classList:{add(){},remove(){}}},addEventListener(){},getElementById(id){return element(`#${id}`)} };
-let quiz1={value:'b'},quiz2={value:'a'};const context={document,window:fakeWindow,HTMLElement:function(){},HTMLInputElement:function(){},HTMLSelectElement:function(){},HTMLTextAreaElement:function(){},HTMLButtonElement:function(){},SpeechSynthesisUtterance:function(t){this.text=t},console,setTimeout,clearTimeout,confirm:()=>false};
-vm.runInNewContext(source,context);fakeWindow.ready();
-function click(selector){const e=element(selector);assert.ok(e.handlers.click,`${selector} click wired`);e.handlers.click({target:e,preventDefault(){}})}
-click('#start-lesson');assert.equal(fakeWindow.scrollCalls.at(-1),'#warmup');
-const select=element('#notice-answer');select.handlers.change({target:Object.assign(select,{value:'introduce'})});assert.match(element('#notice-feedback').textContent,/Correct/);
-const mission=element('#mission-answer');mission.value='Hi, I am Tania';mission.handlers.input();assert.equal(element('#mission-submit').disabled,false);click('#mission-submit');assert.ok(element('#mission-dialogue').children.length>=2);assert.equal(element('#mission-prompt-title').textContent,'Share one detail about yourself.');
-click('#roleplay-model');assert.match(element('#roleplay-answer').value,/Rafi/);element('#roleplay-answer').value='Nila, this is my friend Rafi. What do you like?';click('#roleplay-check');assert.ok(element('#roleplay-feedback').children.length>0);
-const situ=element('#situations');situ.handlers.change({target:Object.assign(situ,{value:'festival'})});assert.match(element('#situation-scene').textContent,/cultural evening/);element('#situation-answer').value='Hello, what is your favourite part?';click('#situation-check');assert.equal(element('#situation-dialogue').children.length,2);
-const repair=element('input[name="repair-choice"]:checked');repair.value='repair';document.querySelector=selector=>selector==='input[name="repair-choice"]:checked'?repair:selector==='input[name="quiz1"]:checked'?quiz1:selector==='input[name="quiz2"]:checked'?quiz2:element(selector);click('#repair-check');assert.match(element('#repair-feedback').textContent,/Exactly/);
-element('#exit-answer').value='Hi, I am Tania. What about you?';click('#submit-assessment');assert.ok(element('#assessment-result').children.length>0);
-click('#timer-toggle');assert.equal(fakeWindow.setInterval!==undefined,true);assert.equal(element('#timer-toggle').attributes['aria-pressed'],'true');
-console.log('PASS: HTML controls and navigation targets');console.log('PASS: start lesson, language check, guided input and reply');console.log('PASS: role-play example and formative feedback');console.log('PASS: situation switching, dialogue and kindness challenge');console.log('PASS: exit ticket assessment and timer start');
+// Browser-independent tests for the 15-minute role-play lesson.
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+
+const html = fs.readFileSync('index.html', 'utf8');
+const source = fs.readFileSync('lesson.js', 'utf8');
+
+for (const id of ['warmup', 'toolkit', 'roleplay', 'check', 'rp-setup', 'rp-player', 'rp-report', 'rp-begin', 'rp-submit', 'rp-model', 'rp-pause', 'rp-copy', 'rp-again', 'submit-assessment']) {
+  assert.ok(html.includes(`id="${id}"`), `Missing HTML control #${id}`);
+}
+assert.ok(!html.includes('id="situations"'), 'Removed practice section should be gone');
+for (const phrase of ['15-minute role-play', 'Four rounds', 'Role-play report']) assert.ok(html.includes(phrase), `Missing copy: ${phrase}`);
+
+const timers = new Map();
+let timerId = 0;
+const elements = new Map();
+const route = [0, 1, 2, 3].map(() => ({ classList: { add() {}, remove() {} } }));
+
+function makeElement(name) {
+  return {
+    name, textContent: '', value: '', hidden: false, disabled: false, placeholder: '',
+    innerHTML: '', children: [], style: {}, dataset: {}, attributes: {}, handlers: {},
+    classList: { add() {}, remove() {}, toggle() {} },
+    addEventListener(type, fn) { this.handlers[type] = fn; },
+    append(...kids) { this.children.push(...kids); },
+    appendChild(kid) { this.children.push(kid); },
+    replaceChildren(...kids) { this.children = kids; },
+    remove() {}, removeAttribute() {}, setAttribute() {}, getAttribute() { return null; },
+    focus() {}, scrollIntoView() {}, querySelector() { return null; }, querySelectorAll() { return []; },
+    get scrollHeight() { return 0; },
+  };
+}
+function el(selector) {
+  if (!elements.has(selector)) elements.set(selector, makeElement(selector));
+  return elements.get(selector);
+}
+for (const id of ['warmup', 'warmup-feedback', 'notice-answer', 'notice-feedback', 'roleplay', 'rp-setup', 'rp-player', 'rp-report', 'rp-dialogue', 'rp-name', 'rp-voice', 'rp-round-label', 'rp-window', 'rp-scene', 'rp-task', 'rp-label', 'rp-criteria', 'rp-answer', 'rp-starters', 'rp-submit', 'rp-model', 'rp-say', 'rp-pause', 'rp-clock', 'rp-bar', 'rp-report-summary', 'rp-report-body', 'rp-again', 'rp-copy', 'rp-copy-note', 'rp-voice-status', 'rp-begin', 'rp-feedback', 'exit-answer', 'assessment-result', 'completion-stamp', 'reset-lesson', 'submit-assessment', 'start-lesson', 'lesson-route']) {
+  el(`#${id}`);
+}
+el('#rp-voice').value = 'female';
+
+let quiz1 = { value: 'b' };
+let quiz2 = { value: 'a' };
+const documentMock = {
+  querySelector(selector) {
+    if (selector === 'input[name="quiz1"]:checked') return quiz1;
+    if (selector === 'input[name="quiz2"]:checked') return quiz2;
+    return el(selector);
+  },
+  querySelectorAll(selector) {
+    if (selector === '#lesson-route li') return route;
+    if (selector === '.warmup-option' || selector === '.text-advance' || selector === '.hear-phrase') return [];
+    return [];
+  },
+  createElement() { return makeElement('created'); },
+  getElementById(id) { return el(`#${id}`); },
+  body: { classList: { add() {}, remove() {} } },
+  addEventListener() {},
+};
+const windowMock = {
+  ready: null,
+  addEventListener(type, fn) { if (type === 'DOMContentLoaded') this.ready = fn; },
+  setInterval(fn) { const id = ++timerId; timers.set(id, fn); return id; },
+  clearInterval(id) { timers.delete(id); },
+};
+const context = { document: documentMock, window: windowMock, console, setTimeout, clearTimeout, navigator: {} };
+vm.runInNewContext(source, context);
+windowMock.ready();
+
+function click(selector) {
+  const node = el(selector);
+  assert.ok(node.handlers.click, `${selector} should have a click handler`);
+  node.handlers.click({ target: node, preventDefault() {} });
+}
+function type(selector, text) {
+  const node = el(selector);
+  node.value = text;
+  if (node.handlers.input) node.handlers.input({ target: node });
+}
+function bubbles() { return el('#rp-dialogue').children.length; }
+
+// 1. Start the role-play.
+el('#rp-name').value = 'Tania';
+click('#rp-begin');
+assert.equal(el('#rp-setup').hidden, true, 'setup hides on start');
+assert.equal(el('#rp-player').hidden, false, 'player shows on start');
+assert.equal(el('#rp-clock').textContent, '15:00', 'clock starts at 15:00');
+assert.equal(bubbles(), 1, 'partner opens round 1');
+assert.equal(el('#rp-round-label').textContent, 'Round 1 of 4');
+assert.ok(el('#rp-criteria').children.length === 3, 'three criteria shown per round');
+assert.equal(timers.size, 1, 'timer runs');
+
+// 2. Round 1 example.
+type('#rp-answer', 'Hi, Nila! I’m Tania. Yes, I’m a student here too.');
+click('#rp-submit');
+assert.equal(bubbles(), 3, 'learner line and reply added');
+assert.match(el('#rp-feedback').textContent, /3\/3/, 'round 1 scores full marks');
+assert.match(el('#rp-submit').textContent, /Continue to round 2/);
+click('#rp-submit');
+assert.equal(el('#rp-round-label').textContent, 'Round 2 of 4');
+
+// 3. Round 2.
+type('#rp-answer', 'I’m studying business, and I enjoy public speaking. What made you choose debate?');
+click('#rp-submit');
+assert.match(el('#rp-feedback').textContent, /3\/3/, 'round 2 scores full marks');
+click('#rp-submit');
+assert.equal(el('#rp-round-label').textContent, 'Round 3 of 4');
+
+// 4. Round 3 introduces both people.
+type('#rp-answer', 'Nila, this is my friend Rafi. Rafi, this is Nila — she is interested in debate.');
+click('#rp-submit');
+assert.match(el('#rp-feedback').textContent, /3\/3/, 'round 3 scores full marks');
+click('#rp-submit');
+assert.equal(el('#rp-round-label').textContent, 'Round 4 of 4');
+
+// 5. Round 4 closes the conversation and produces the report.
+type('#rp-answer', 'Would you like to come to the first meeting on Saturday? It was lovely to meet you.');
+click('#rp-submit');
+assert.match(el('#rp-feedback').textContent, /3\/3/, 'round 4 scores full marks');
+click('#rp-submit');
+assert.equal(el('#rp-player').hidden, true, 'player closes');
+assert.equal(el('#rp-report').hidden, false, 'report opens');
+assert.match(el('#rp-report-summary').textContent, /12\/12/, 'total score reported');
+assert.ok(el('#rp-report-body').children.length >= 5, 'report lists rounds and next step');
+assert.equal(timers.size, 0, 'timer stops at the report');
+
+// 6. A weak line must produce targeted feedback rather than a pass.
+click('#rp-again');
+assert.equal(el('#rp-setup').hidden, false, 'replay returns to setup');
+click('#rp-begin');
+type('#rp-answer', 'ok thanks');
+click('#rp-submit');
+assert.match(el('#rp-feedback').textContent, /0\/3|1\/3/, 'weak line scores low');
+assert.match(el('#rp-feedback').textContent, /Hi|Hello|name|question/i, 'weak line gets a fix');
+
+// 7. Exit ticket still scores.
+click('#rp-pause');
+el('#exit-answer').value = 'Hi, I’m Tania. What about you?';
+click('#submit-assessment');
+assert.ok(el('#assessment-result').children.length > 0, 'exit ticket renders feedback');
+
+console.log('PASS: 15-minute role-play starts with timer and round 1 partner line');
+console.log('PASS: four rounds advance only after a learner line is scored');
+console.log('PASS: full role-play reaches a 12/12 report with per-round evidence');
+console.log('PASS: weak answers receive targeted criteria feedback');
+console.log('PASS: exit ticket assessment still works');
