@@ -6,7 +6,7 @@ const nameTest = (text) => new RegExp(`(?:i am|i['’]?m|my name is)\\s+${NAME_S
 const hasQuestion = (text) => /\?/.test(text) || /\b(what|how|why|where|do you|are you|have you|would you)\b/i.test(text);
 const rounds = [
     {
-        label: 'First contact', window: '0:00–3:30',
+        label: 'First contact', phase: 'Guided practice', window: '0:00–3:00',
         scene: 'The fair is loud. Nila is standing near the debate society table, holding a campus map.',
         task: 'Greet Nila, say your name, and answer her question.',
         who: 'Nila',
@@ -22,7 +22,7 @@ const rounds = [
         reply: (text, name) => `Lovely to meet you${name ? `, ${name}` : ''}! I’m in my first year. Which club looks interesting to you?`
     },
     {
-        label: 'Find common ground', window: '3:30–7:30',
+        label: 'Find common ground', phase: 'Guided practice', window: '3:00–6:00',
         scene: 'Nila points at the debate society poster. The queue behind you is moving slowly.',
         task: 'Share one real detail about yourself, then ask Nila a question.',
         who: 'Nila',
@@ -38,7 +38,7 @@ const rounds = [
         reply: () => 'That sounds interesting — I like how debate makes you think on your feet. I’m a little nervous about speaking in front of people.'
     },
     {
-        label: 'Bring a friend in', window: '7:30–11:30',
+        label: 'Bring a friend in', phase: 'Main task', window: '6:00–10:30',
         scene: 'Your classmate Rafi walks up holding two cups of tea.',
         task: 'Introduce Rafi to Nila and Nila to Rafi. Add one detail that helps them start talking.',
         who: 'Rafi',
@@ -54,7 +54,7 @@ const rounds = [
         reply: () => 'Nice to meet you, Nila! Debate is a good choice — the first meeting is friendly. I joined last year and I still go.'
     },
     {
-        label: 'Invite and close', window: '11:30–15:00',
+        label: 'Invite and close', phase: 'Main task', window: '10:30–15:00',
         scene: 'Nila looks at the sign-up sheet, then back at you. The fair is starting to empty.',
         task: 'Invite Nila to do something with you, then close the conversation warmly.',
         who: 'Nila',
@@ -137,6 +137,7 @@ function rpStart() {
 }
 function rpRender() {
     const round = rpCurrent();
+    $('#rp-phase').textContent = round.phase;
     $('#rp-round-label').textContent = `Round ${rp.round + 1} of 4`;
     $('#rp-window').textContent = round.window;
     $('#rp-scene').textContent = round.scene;
@@ -229,6 +230,8 @@ function rpSubmit() {
     speak(partnerLine, rpVoice(), '#rp-voice-status');
     const { earned, missed } = rpScore(answer);
     rp.results[rp.round] = { round: round.label, earned, total: 3, missed, text: answer };
+    if (rp.round === 1)
+        markStage(2);
     setNotice('#rp-feedback', `${round.label}: ${earned}/3. ${missed.length ? missed[0] : 'Everything this round needed is there.'}`);
     const submit = $('#rp-submit');
     submit.textContent = rp.round === 3 ? 'See my role-play report ↗' : `Continue to round ${rp.round + 2} →`;
@@ -246,6 +249,7 @@ function rpAdvance() {
 }
 function rpFinish() {
     rpStopTimer();
+    markStage(3);
     $('#rp-player').hidden = true;
     const report = $('#rp-report');
     report.hidden = false;
@@ -363,12 +367,35 @@ function submitAssessment() {
     result.score = Math.min(3, quiz + Number(result.score > 0));
     showAssessment($('#assessment-result'), result, result.score === 3 ? 'Strong evidence: welcoming language and an effective introduction.' : result.score === 2 ? 'You’re getting there. Review the notes, then improve one line.' : 'Keep practising. The toolkit phrases are your base.');
     $('#completion-stamp').removeAttribute('hidden');
-    markStage(3);
+    markStage(5);
+}
+const reviewItems = [
+    { key: 'r1', correct: 'b', why: 'Inviting her gives her a choice and an easy way into the group.' },
+    { key: 'r2', correct: 'a', why: 'Both names plus the relationship make the introduction clear to everyone.' },
+    { key: 'r3', correct: 'c', why: 'A warm close plus a concrete next meeting keeps the connection alive.' }
+];
+function checkReview() {
+    const strengths = [];
+    const feedback = [];
+    let score = 0;
+    reviewItems.forEach((item, index) => {
+        const picked = document.querySelector(`input[name="${item.key}"]:checked`)?.value;
+        if (picked === item.correct) {
+            score += 1;
+            strengths.push(`Question ${index + 1}: correct. ${item.why}`);
+        }
+        else
+            feedback.push(picked ? `Question ${index + 1}: ${item.why}` : `Question ${index + 1}: choose an answer first.`);
+    });
+    showAssessment($('#review-feedback'), { score, feedback, strengths }, score === 3 ? 'All three correct — you noticed the inclusive moves in the conversation.' : score === 2 ? 'Two out of three. Read the note for the one to revisit.' : 'Review the toolkit lines, then try the three questions again.');
+    if (score >= 2)
+        markStage(4);
 }
 function markStage(index) {
     const items = $$('#lesson-route li');
     if (items[index])
         items[index].classList.add('route-done');
+    $$('#framework-list li').forEach((item, position) => item.classList.toggle('is-done', position <= index));
     if (items[index + 1]) {
         items.forEach(item => item.classList.remove('route-active'));
         items[index + 1].classList.add('route-active');
@@ -422,6 +449,7 @@ function initLesson() {
     });
     $('#rp-again').addEventListener('click', rpReset);
     $('#rp-copy').addEventListener('click', rpCopyTranscript);
+    $('#review-check').addEventListener('click', checkReview);
     $('#submit-assessment').addEventListener('click', submitAssessment);
     $('#reset-lesson').addEventListener('click', () => { if (confirm('Reset the whole lesson, including the role-play?'))
         window.location.reload(); });

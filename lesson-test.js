@@ -7,7 +7,7 @@ const assert = require('node:assert/strict');
 const html = fs.readFileSync('index.html', 'utf8');
 const source = fs.readFileSync('lesson.js', 'utf8');
 
-for (const id of ['warmup', 'toolkit', 'roleplay', 'check', 'rp-setup', 'rp-player', 'rp-report', 'rp-begin', 'rp-submit', 'rp-model', 'rp-pause', 'rp-copy', 'rp-again', 'submit-assessment']) {
+for (const id of ['warmup', 'toolkit', 'roleplay', 'review', 'check', 'rp-setup', 'rp-player', 'rp-report', 'rp-begin', 'rp-submit', 'rp-model', 'rp-pause', 'rp-copy', 'rp-again', 'review-check', 'submit-assessment']) {
   assert.ok(html.includes(`id="${id}"`), `Missing HTML control #${id}`);
 }
 assert.ok(!html.includes('id="situations"'), 'Removed practice section should be gone');
@@ -16,7 +16,8 @@ for (const phrase of ['15-minute role-play', 'Four rounds', 'Role-play report'])
 const timers = new Map();
 let timerId = 0;
 const elements = new Map();
-const route = [0, 1, 2, 3].map(() => ({ classList: { add() {}, remove() {} } }));
+const route = [0, 1, 2, 3, 4, 5].map(() => ({ classList: { add() {}, remove() {} } }));
+const framework = [0, 1, 2, 3, 4, 5].map(() => ({ classList: { add() {}, remove() {}, toggle() {} } }));
 
 function makeElement(name) {
   return {
@@ -36,21 +37,28 @@ function el(selector) {
   if (!elements.has(selector)) elements.set(selector, makeElement(selector));
   return elements.get(selector);
 }
-for (const id of ['warmup', 'warmup-feedback', 'notice-answer', 'notice-feedback', 'roleplay', 'rp-setup', 'rp-player', 'rp-report', 'rp-dialogue', 'rp-name', 'rp-voice', 'rp-round-label', 'rp-window', 'rp-scene', 'rp-task', 'rp-label', 'rp-criteria', 'rp-answer', 'rp-starters', 'rp-submit', 'rp-model', 'rp-say', 'rp-pause', 'rp-clock', 'rp-bar', 'rp-report-summary', 'rp-report-body', 'rp-again', 'rp-copy', 'rp-copy-note', 'rp-voice-status', 'rp-begin', 'rp-feedback', 'exit-answer', 'assessment-result', 'completion-stamp', 'reset-lesson', 'submit-assessment', 'start-lesson', 'lesson-route']) {
+for (const id of ['warmup', 'warmup-feedback', 'notice-answer', 'notice-feedback', 'roleplay', 'rp-setup', 'rp-player', 'rp-report', 'rp-dialogue', 'rp-name', 'rp-voice', 'rp-phase', 'rp-round-label', 'rp-window', 'review-check', 'review-feedback', 'rp-scene', 'rp-task', 'rp-label', 'rp-criteria', 'rp-answer', 'rp-starters', 'rp-submit', 'rp-model', 'rp-say', 'rp-pause', 'rp-clock', 'rp-bar', 'rp-report-summary', 'rp-report-body', 'rp-again', 'rp-copy', 'rp-copy-note', 'rp-voice-status', 'rp-begin', 'rp-feedback', 'exit-answer', 'assessment-result', 'completion-stamp', 'reset-lesson', 'submit-assessment', 'start-lesson', 'lesson-route']) {
   el(`#${id}`);
 }
 el('#rp-voice').value = 'female';
 
 let quiz1 = { value: 'b' };
 let quiz2 = { value: 'a' };
+let r1 = { value: 'b' };
+let r2 = { value: 'a' };
+let r3 = { value: 'c' };
 const documentMock = {
   querySelector(selector) {
     if (selector === 'input[name="quiz1"]:checked') return quiz1;
     if (selector === 'input[name="quiz2"]:checked') return quiz2;
+    if (selector === 'input[name="r1"]:checked') return r1;
+    if (selector === 'input[name="r2"]:checked') return r2;
+    if (selector === 'input[name="r3"]:checked') return r3;
     return el(selector);
   },
   querySelectorAll(selector) {
     if (selector === '#lesson-route li') return route;
+    if (selector === '#framework-list li') return framework;
     if (selector === '.warmup-option' || selector === '.text-advance' || selector === '.hear-phrase') return [];
     return [];
   },
@@ -100,6 +108,7 @@ assert.match(el('#rp-feedback').textContent, /3\/3/, 'round 1 scores full marks'
 assert.match(el('#rp-submit').textContent, /Continue to round 2/);
 click('#rp-submit');
 assert.equal(el('#rp-round-label').textContent, 'Round 2 of 4');
+assert.equal(el('#rp-phase').textContent, 'Guided practice');
 
 // 3. Round 2.
 type('#rp-answer', 'I’m studying business, and I enjoy public speaking. What made you choose debate?');
@@ -107,6 +116,7 @@ click('#rp-submit');
 assert.match(el('#rp-feedback').textContent, /3\/3/, 'round 2 scores full marks');
 click('#rp-submit');
 assert.equal(el('#rp-round-label').textContent, 'Round 3 of 4');
+assert.equal(el('#rp-phase').textContent, 'Main task');
 
 // 4. Round 3 introduces both people.
 type('#rp-answer', 'Nila, this is my friend Rafi. Rafi, this is Nila — she is interested in debate.');
@@ -135,7 +145,12 @@ click('#rp-submit');
 assert.match(el('#rp-feedback').textContent, /0\/3|1\/3/, 'weak line scores low');
 assert.match(el('#rp-feedback').textContent, /Hi|Hello|name|question/i, 'weak line gets a fix');
 
-// 7. Exit ticket still scores.
+// 7. Stage 5 review scores and gives reasons.
+click('#review-check');
+assert.ok(el('#review-feedback').children.length > 0, 'review renders feedback');
+assert.match(el('#review-feedback').children[0].children[0].textContent, /3\/3/, 'review scores three correct');
+
+// 8. Stage 6 exit ticket still scores.
 click('#rp-pause');
 el('#exit-answer').value = 'Hi, I’m Tania. What about you?';
 click('#submit-assessment');
@@ -146,3 +161,4 @@ console.log('PASS: four rounds advance only after a learner line is scored');
 console.log('PASS: full role-play reaches a 12/12 report with per-round evidence');
 console.log('PASS: weak answers receive targeted criteria feedback');
 console.log('PASS: exit ticket assessment still works');
+

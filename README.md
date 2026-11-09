@@ -10,10 +10,14 @@ A browser-run English lesson for **C6: Introducing Yourself and Others**, set at
 
 | Time | Stage | What learners do |
 | --- | --- | --- |
-| 2 min | Set the scene | Choose a welcoming opener for a student alone at the fair |
-| 3 min | Language toolkit | Notice the four moves: open, connect, introduce, invite |
-| **15 min** | **Role-play practice** | Four timed rounds, each scored on three criteria |
-| 2 min | Exit ticket | Two selected-response checks plus a written introduction |
+| 2 min | 1 · Warm-up | Choose a welcoming opener for a student alone at the fair |
+| 2 min | 2 · Delivery | Notice the four moves: open, connect, introduce, invite |
+| 6 min | 3 · Guided practice | Role-play rounds 1–2, with criteria, starters and a model line |
+| 9 min | 4 · Main task | Role-play rounds 3–4: introduce Rafi, invite Nila, close warmly |
+| 1 min | 5 · Review | Three quick decisions about the conversation, with reasons |
+| 2 min | 6 · Feedback | Role-play report plus the exit-ticket score and next steps |
+
+The website shows all six stages: a framework strip, a six-step route in the sidebar, stage labels on every panel, and a highlighted stage chip inside the role-play timer.
 
 ### The role-play
 

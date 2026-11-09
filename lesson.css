@@ -66,3 +66,13 @@
 .rp-copy-note{min-height:18px;margin:8px 0 0;font-size:12.5px;color:#5f7a4a}
 @media(max-width:900px){.role-cards{grid-template-columns:1fr}.rp-setup-row{grid-template-columns:1fr}.rp-timer{grid-template-columns:1fr auto}.rp-meta{grid-column:1/-1;justify-content:flex-start}.rp-clock strong{font-size:26px}.mode-badge{display:none}}
 @media(max-width:680px){.rp-player{padding:12px}.rp-bubble{max-width:92%}.rp-actions .primary-button,.rp-actions .outline-button{width:100%}.rp-criteria li{font-size:11px}}
+
+/* ---------- Six-stage framework, visible in the lesson ---------- */
+.framework-strip{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 18px;background:#f1f3e8;border-bottom:1px solid #dde3d3}
+.framework-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#7b8b6e;font-weight:700}
+.framework-strip ol{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:0;padding:0;counter-reset:none}
+.framework-strip li{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:#fbfbf4;border:1px solid #dbe2d0;color:#5c6f60;font-size:12.5px;font-weight:600;transition:background .2s,border-color .2s,color .2s}
+.framework-strip li b{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#e4ead7;color:#6b8549;font:600 11px 'DM Sans',sans-serif}
+.framework-strip li.is-done{background:#e8efda;border-color:#a8bd83;color:#3f5f39}
+.framework-strip li.is-done b{background:#7e9a56;color:#fff}
+.rp-phase{background:#d9e6b4!important;color:#2f4a26!important;border-color:#b2c98a!important}
