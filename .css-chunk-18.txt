@@ -1,1 +1,0 @@
-.roleplay-scene{grid-template-columns:1fr}.lesson-footer{padding:15px;gap:10px;flex-direction:column}.quiz-question legend{line-height:1.5}.hero-buttons{flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
