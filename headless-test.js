@@ -18,7 +18,7 @@ sandbox.build.length=0;sandbox.build.push('I','am','studying','English.');g('che
 assert(/Perfect/.test(el('buildFeedback').textContent),'builder L1 accepts correct sentence');
 assert(el('buildFeedback').innerHTML.includes('nextBuild'),'builder L1 offers next level');
 g('nextBuild')();assert(el('buildPrompt').textContent.includes('Level 2'),'builder advances to L2');
-sandbox.build.length=0;sandbox.build.push('This','is','my','friend','Sadia.');g('checkBuild')();
+sandbox.build.length=0;sandbox.build.push('This','is','my','friend','Afia.');g('checkBuild')();
 assert(/Perfect/.test(el('buildFeedback').textContent),'builder L2 accepts correct sentence');
 g('nextBuild')();assert(el('buildPrompt').textContent.includes('Level 3'),'builder advances to L3');
 sandbox.build.length=0;sandbox.build.push('Would','you','like','to','join','us?');g('checkBuild')();

@@ -131,7 +131,7 @@ body.high-contrast .garden{display:none}
 <div class="lessongrid"><div class="panel"><h3>Today's flight plan</h3>
 <div class="lesson"><b>1. Take off — open the conversation ✈️</b><p>Start with a greeting and your name, like a plane lifting off the runway.</p><div class="example">“Hi, I'm Tanvir. Nice to meet you!”</div></div>
 <div class="lesson"><b>2. Cruise — connect at cruising altitude ☁️</b><p>Share one detail and ask a question, keeping the conversation flying smoothly.</p><div class="example">“I'm studying engineering. What about you?”</div></div>
-<div class="lesson"><b>3. Board a passenger — introduce another person 🛫</b><p>Say both people's names and explain how you know them, like helping someone find their seat.</p><div class="example">“This is my friend Sadia. Sadia, meet Tanvir.”</div></div>
+<div class="lesson"><b>3. Board a passenger — introduce another person 🛫</b><p>Say both people's names and explain how you know them, like helping someone find their seat.</p><div class="example">“This is my friend Afia. Afia, meet Tanvir.”</div></div>
 <div class="lesson"><b>4. Land safely — invite and close politely 🛬</b><p>Make the other person feel included before you say goodbye.</p><div class="example">“Would you like to join us?” · “It was lovely meeting you!”</div></div>
 <button class="btn" onclick="tab('games')">Practise with games →</button></div>
 <div class="panel"><h3>Teacher's corner 💡</h3><p><b>Remember:</b> A good introduction is a two-way exchange. Share a little about yourself, then give the other person a chance to speak.</p>
@@ -213,17 +213,17 @@ function tab(id){document.querySelectorAll("main section").forEach(s=>s.classLis
 const area=()=>document.getElementById("gameArea");
 function game(type){let a=area();a.innerHTML="";if(type==="builder"){window.builderLevels=[
  {target:"I am studying English.",words:["studying","English.","I","am"],hint:"I → am → studying → English."},
- {target:"This is my friend Sadia.",words:["This","is","my","friend","Sadia."],hint:"This → is → my → friend → Sadia."},
+ {target:"This is my friend Afia.",words:["This","is","my","friend","Afia."],hint:"This → is → my → friend → Afia."},
  {target:"Would you like to join us?",words:["Would","you","like","to","join","us?"],hint:"Would → you → like → to → join → us?"}
  ];window.builderLevel=0;a.innerHTML=`<div class="panel"><div class="game-top"><h3>🧩 Sentence Builder</h3><span class="tag">Level <b id="buildLevel">1</b> of 3 · +20 XP</span></div><p id="buildPrompt"></p><div class="wordbank" id="words"></div><div class="dropzone" id="built">Your sentence appears here…</div><p><button class="btn" onclick="checkBuild()">Check sentence</button> <button class="btn secondary" onclick="drawBuilder()">Reset level</button></p><div class="feedback" id="buildFeedback"></div></div>`;drawBuilder()}
-else if(type==="flash"){let cards=[["Boarding pass","The card that lets you get on a plane.","Keep your boarding pass ready at the gate."],["Introduce","To tell someone another person's name.","Let me introduce my co-pilot, Sadia."],["Passenger","A person travelling in a vehicle or plane.","Every passenger needs a seat number."],["Invite","To ask someone to join an activity.","Would you like to join us for lunch?"],["Co-pilot","The second pilot who helps fly the plane.","My co-pilot waved from the gate."],["Layover","A short stop between two flights.","We have a two-hour layover in Dubai."]];window.flashIndex=0;window.flashSide=false;window.flashCards=cards;a.innerHTML=`<div class="panel"><div class="game-top"><h3>🃏 Flashcard Flip</h3><span class="tag">Card <b id="flashCount">1</b> of 6 · +10 XP</span></div><p class="muted">Tap the card to reveal the meaning. Move through all six words.</p><div class="flashcard" onclick="flipCard()"><div><div class="big" id="flashWord">Boarding pass</div><small id="flashHint">Tap to flip</small></div></div><div style="text-align:center"><button class="btn secondary" onclick="nextCard(-1)">← Previous</button> <button class="btn" onclick="nextCard(1)">Next word →</button></div><div class="feedback show" id="flashFeedback">Learn the word, read the example aloud, then move on.</div></div>`}
+else if(type==="flash"){let cards=[["Boarding pass","The card that lets you get on a plane.","Keep your boarding pass ready at the gate."],["Introduce","To tell someone another person's name.","Let me introduce my co-pilot, Afia."],["Passenger","A person travelling in a vehicle or plane.","Every passenger needs a seat number."],["Invite","To ask someone to join an activity.","Would you like to join us for lunch?"],["Co-pilot","The second pilot who helps fly the plane.","My co-pilot waved from the gate."],["Layover","A short stop between two flights.","We have a two-hour layover in Dubai."]];window.flashIndex=0;window.flashSide=false;window.flashCards=cards;a.innerHTML=`<div class="panel"><div class="game-top"><h3>🃏 Flashcard Flip</h3><span class="tag">Card <b id="flashCount">1</b> of 6 · +10 XP</span></div><p class="muted">Tap the card to reveal the meaning. Move through all six words.</p><div class="flashcard" onclick="flipCard()"><div><div class="big" id="flashWord">Boarding pass</div><small id="flashHint">Tap to flip</small></div></div><div style="text-align:center"><button class="btn secondary" onclick="nextCard(-1)">← Previous</button> <button class="btn" onclick="nextCard(1)">Next word →</button></div><div class="feedback show" id="flashFeedback">Learn the word, read the example aloud, then move on.</div></div>`}
 else if(type==="memory"){window.memoryLevels=[
  [["Hello","A greeting"],["Boarding","Getting on the plane"],["Introduce","Give someone's name"],["Invite","Ask to join"]],
  [["Passport","Travel ID document"],["Layover","Stop between flights"],["Co-pilot","Second pilot"],["Seat belt","Safety strap"]],
  [["Gate","Where you board"],["Departure","Leaving time"],["Arrival","Landing time"],["Luggage","Your bags"]]
 ];window.memLevel=0;drawMemory()}
 else if(type==="quiz"){window.quizLevels=[
- {q:"Which sentence politely introduces your co-pilot?",opts:[["“You, meet Sadia.”",false],["“This is my friend Sadia.”",true],["“Sadia is there.”",false]],why:"A clear introduction includes a friendly phrase and the person's name."},
+ {q:"Which sentence politely introduces your co-pilot?",opts:[["“You, meet Afia.”",false],["“This is my friend Afia.”",true],["“Afia is there.”",false]],why:"A clear introduction includes a friendly phrase and the person's name."},
  {q:"A new passenger smiles at you. What do you say first?",opts:[["“Good morning! I'm Tanvir.”",true],["“What do you want?”",false],["*silence*",false]],why:"A greeting plus your name opens any conversation warmly."},
  {q:"Which reply keeps a conversation flying?",opts:[["“I'm studying engineering. What about you?”",true],["“Nothing.”",false],["“I don't want to talk.”",false]],why:"Share a detail and ask a question back — that's cruising altitude."}
 ];window.quizLevel=0;drawQuiz()}
@@ -234,8 +234,8 @@ else if(type==="odd"){window.oddLevels=[
 ];window.oddLevel=0;drawOdd()}
 else if(type==="gate"){window.gateLevels=[
  {q:"A passenger at Gate 7 says: <b>“Excuse me, I can't find my seat. Can you help me?”</b> What is the best reply?",opts:[["“Find it yourself.”",false],["“Of course! Your seat is 24C, by the window. Come with me.”",true],["“I'm busy right now.”",false]],why:"Clear, kind and helpful — perfect passenger service."},
- {q:"Sadia asks: <b>“I'm nervous about my first flight. What should I do?”</b> What is the kindest reply?",opts:[["“That's your problem.”",false],["“Don't worry — I'll sit next to you and we can chat.”",true],["“Planes are dangerous.”",false]],why:"Reassure her and offer company — a warm introduction in action."},
- {q:"Your friend Imran arrives: <b>“Hey, who's your new friend?”</b> How do you introduce them?",opts:[["“This is Sadia. Sadia, meet Imran — she's a pilot trainee.”",true],["“A person from the plane.”",false],["“Nobody.”",false]],why:"Both names plus one detail gives them something to talk about."}
+ {q:"Afia asks: <b>“I'm nervous about my first flight. What should I do?”</b> What is the kindest reply?",opts:[["“That's your problem.”",false],["“Don't worry — I'll sit next to you and we can chat.”",true],["“Planes are dangerous.”",false]],why:"Reassure her and offer company — a warm introduction in action."},
+ {q:"Your friend Imran arrives: <b>“Hey, who's your new friend?”</b> How do you introduce them?",opts:[["“This is Afia. Afia, meet Imran — she's a pilot trainee.”",true],["“A person from the plane.”",false],["“Nobody.”",false]],why:"Both names plus one detail gives them something to talk about."}
 ];window.gateLevel=0;drawGate()}}
 function drawBuilder(){window.build=[];const L=window.builderLevels[window.builderLevel];const el1=document.getElementById("buildLevel");if(el1)el1.textContent=window.builderLevel+1;document.getElementById("buildPrompt").textContent=`Level ${window.builderLevel+1}: tap the words in the correct order: “${L.target}”`;const arr=[...L.words].sort(()=>Math.random()-.5);document.getElementById("words").innerHTML=arr.map(w=>`<button onclick="addWord(this,'${w}')">${w}</button>`).join("");document.getElementById("built").innerHTML="Your sentence appears here…";document.getElementById("buildFeedback").classList.remove("show")}
 function addWord(btn,w){btn.disabled=true;window.build.push(w);document.getElementById("built").innerHTML=window.build.map(x=>`<span>${x}</span>`).join("")}
@@ -261,16 +261,16 @@ const checkpoints=[
   opts:[["“Good morning! Yes, I'm Tanvir. It's my first flight with Skyport.”",true],["“Give me my ticket.”",false],["“Why do you need my name?”",false]],
   good:"The officer smiles: “Thank you, Tanvir. You're all checked in — gate 7, seat 24C.” You took off smoothly: greeting + name.",
   chip:"Check-in · Take off"},
- {art:"👩‍🦱",speaker:"Fellow passenger at the gate says:",line:"“Hi! I'm Sadia. I'm sitting next to you — 24B! What do you do?”",task:"Cruise: share one detail about yourself and ask her a question.",xp:20,
-  opts:[["“Nice to meet you, Sadia! I'm studying engineering. What about you?”",true],["“I don't tell strangers.”",false],["“Nothing much.”",false]],
-  good:"Sadia laughs: “Engineering! I'm a pilot trainee — maybe I'll fly your plane one day!” You kept the conversation cruising: detail + question.",
+ {art:"👩‍🦱",speaker:"Fellow passenger at the gate says:",line:"“Hi! I'm Afia. I'm sitting next to you — 24B! What do you do?”",task:"Cruise: share one detail about yourself and ask her a question.",xp:20,
+  opts:[["“Nice to meet you, Afia! I'm studying engineering. What about you?”",true],["“I don't tell strangers.”",false],["“Nothing much.”",false]],
+  good:"Afia laughs: “Engineering! I'm a pilot trainee — maybe I'll fly your plane one day!” You kept the conversation cruising: detail + question.",
   chip:"Gate · Cruise"},
- {art:"🧑‍✈️",speaker:"Your co-pilot arrives, waving:",line:"“Hey! Sorry I'm late — traffic on the runway road!”",task:"Board a passenger: introduce your co-pilot Sadia to your friend Imran.",xp:20,
-  opts:[["“Sadia, this is my friend Imran. Imran, meet Sadia — she's a pilot trainee!”",true],["“You two talk.”",false],["“Imran… this is… um… someone.”",false]],
-  good:"Imran: “A pilot trainee! Amazing to meet you, Sadia.” You introduced BOTH names and gave them something to talk about. Passenger boarded!",
+ {art:"🧑‍✈️",speaker:"Your co-pilot arrives, waving:",line:"“Hey! Sorry I'm late — traffic on the runway road!”",task:"Board a passenger: introduce your co-pilot Afia to your friend Imran.",xp:20,
+  opts:[["“Afia, this is my friend Imran. Imran, meet Afia — she's a pilot trainee!”",true],["“You two talk.”",false],["“Imran… this is… um… someone.”",false]],
+  good:"Imran: “A pilot trainee! Amazing to meet you, Afia.” You introduced BOTH names and gave them something to talk about. Passenger boarded!",
   chip:"Cabin · Board"},
  {art:"🛬",speaker:"The captain announces:",line:"“Final boarding call for flight FS101. All passengers, please proceed to gate 7.”",task:"Land safely: invite everyone to sit together and close politely.",xp:20,
-  opts:[["“Would you like to sit together, Sadia? Imran, it was lovely meeting you!”",true],["“Bye.”",false],["“Don't follow me.”",false]],
+  opts:[["“Would you like to sit together, Afia? Imran, it was lovely meeting you!”",true],["“Bye.”",false],["“Don't follow me.”",false]],
   good:"The cabin door closes. Everyone smiles — you greeted, connected, introduced and closed. Flight FS101 is ready for take-off! 🛫",
   chip:"Departure · Land"}];
 let storyStep=0;
@@ -288,7 +288,7 @@ function missionTick(){missionLeft=Math.max(0,missionLeft-1);paintMissionClock()
 function stopMissionClock(reset){clearInterval(missionTimer);missionTimer=null;missionRunning=false;if(reset){missionLeft=900}paintMissionClock();document.getElementById("missionToggle").textContent="▶ Start clock"}
 
 // Voice tools: speech synthesis is used for model audio; recognition is browser-dependent.
-const pronTargets=["Nice to meet you. I'm studying engineering.","This is my friend Sadia. She's a pilot trainee.","Would you like to join us for lunch?","It was lovely meeting you!"];
+const pronTargets=["Nice to meet you. I'm studying engineering.","This is my friend Afia. She's a pilot trainee.","Would you like to join us for lunch?","It was lovely meeting you!"];
 let pronIndex=0;
 function speakText(text){
   if(!('speechSynthesis' in window)){toast("Audio playback is not supported in this browser.");return}
@@ -329,7 +329,7 @@ function nextListening(){listeningIndex=(listeningIndex+1)%listeningItems.length
 
 // Guided conversation teacher with optional secure backend integration.
 const teacherPrompts=[
-"Hello! I'm Sadia. I think we're on the same flight — I'm 24B, right next to you. What's your name?",
+"Hello! I'm Afia. I think we're on the same flight — I'm 24B, right next to you. What's your name?",
 "Nice to meet you! Are you travelling for study or for fun?",
 "That sounds interesting. Is this your first flight?",
 "It's been lovely talking with you. Would you like to grab a coffee before boarding?"
