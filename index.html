@@ -1,304 +1,362 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#173a35">
-  <meta name="description" content="FluentSpring C6 — a six-stage English lesson built around a 15-minute role-play: introduce yourself and others at a campus club fair.">
-  <title>First Hello — FluentSpring C6 role-play</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="lesson.css">
-</head>
-<body class="lesson-page">
-  <header class="lesson-header">
-    <a class="lesson-brand" href="#start"><span class="brand-mark">f</span><span>FluentSpring<small>C6 · Speaking lab</small></span></a>
-    <nav class="lesson-nav" aria-label="Lesson navigation">
-      <a href="#warmup">Warm-up</a>
-      <a href="#toolkit">Delivery</a>
-      <a href="#roleplay">Practice · 15 min</a>
-      <a href="#review">Review</a>
-      <a href="#check">Feedback</a>
-    </nav>
-    <div class="mode-badge"><span class="live-dot"></span>6-stage design</div>
-  </header>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FluentSpring — English Learning Adventure</title>
+<style>
+:root{--navy:#23324d;--muted:#73819a;--blue:#668ff0;--purple:#a88bea;--mint:#69c9a8;--yellow:#ffd36d;--pink:#ff9caa;--bg:#f6f8ff;--line:#e9edf6;--shadow:0 12px 32px #30456b12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--navy);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}button{font:inherit;cursor:pointer;border:0}button:focus-visible{outline:3px solid #9ab5ff;outline-offset:2px}.wrap{max-width:1180px;margin:auto;padding:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}.brand{display:flex;align-items:center;gap:10px;font-size:1.25rem;font-weight:900}.logo{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;width:42px;height:42px;border-radius:15px;display:grid;place-items:center;font-size:22px}
+nav{display:flex;gap:4px;flex-wrap:wrap}nav button{padding:9px 12px;border-radius:12px;background:transparent;color:var(--muted);font-weight:750}nav button.active,nav button:hover{background:white;color:var(--blue);box-shadow:var(--shadow)}.user{background:white;border-radius:30px;padding:7px 12px;display:flex;gap:8px;align-items:center;font-weight:750}.avatar{background:#ffe5bd;border-radius:50%;width:32px;height:32px;display:grid;place-items:center}
+main section{display:none}main section.active{display:block}.hero{padding:28px;border-radius:26px;background:linear-gradient(115deg,#e9f2ff,#f0edff 62%,#fff0e7);display:grid;grid-template-columns:1.4fr .6fr;align-items:center;gap:15px}.eyebrow{color:#6683c2;font-size:.72rem;font-weight:900;letter-spacing:1.5px}.hero h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.07;letter-spacing:-1.5px;margin:8px 0}.hero p{color:#63728b;max-width:560px}.hero-art{text-align:center;font-size:105px}.btn{padding:11px 16px;border-radius:13px;font-weight:850;background:var(--blue);color:white;box-shadow:0 7px 16px #668ff044}.btn.secondary{background:white;color:var(--navy);box-shadow:none;border:1px solid var(--line)}.btn.mint{background:var(--mint);color:#123c35}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:15px 0 24px}.stat,.card{background:white;border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 5px 18px #30456b08}.stat{display:flex;align-items:center;gap:11px}.stat .ico{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-size:20px;background:#f1efff}.stat strong{display:block;font-size:1.08rem}.muted{color:var(--muted);font-size:.86rem}.head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:24px 0 12px}.head h2{margin:0;font-size:1.35rem}.head p{margin:3px 0 0;color:var(--muted)}.tag{font-size:.7rem;font-weight:900;color:#5e7bc0;background:#edf2ff;padding:5px 9px;border-radius:30px;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.tile{padding:18px;background:white;border:1px solid var(--line);border-radius:19px;cursor:pointer;transition:.18s;box-shadow:0 5px 18px #30456b08}.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.tile .emoji{font-size:34px}.tile h3{margin:5px 0}.tile p{color:var(--muted);font-size:.86rem;margin:0}.mission{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:#fff8e7;border:1px solid #ffedc5;padding:18px;border-radius:18px}.mission h3{margin:6px 0}.bar{height:9px;border-radius:30px;background:#edf0f6;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--blue));width:0%}
+.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;margin-bottom:14px}.panel h2,.panel h3{margin-top:0}.lessongrid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.lesson{padding:14px;background:#f7f9ff;border-radius:14px;margin:10px 0}.example{background:#eaf8f2;border-left:4px solid var(--mint);padding:11px 13px;border-radius:8px;margin-top:8px}.answers{display:grid;gap:9px;margin:13px 0}.answer{padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-align:left;background:white;color:var(--navy)}.answer:hover{border-color:var(--blue);background:#f6f8ff}.answer.good{border:2px solid var(--mint);background:#effaf5}.answer.bad{border:2px solid var(--pink);background:#fff2f4}.feedback{display:none;padding:12px;border-radius:12px;background:#effaf5;margin-top:12px}.feedback.show{display:block}.game-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.wordbank{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.wordbank button{background:#f0edff;color:#56438b;padding:10px 13px;border-radius:11px;font-weight:800}.wordbank button:disabled{opacity:.25;cursor:default}.dropzone{min-height:54px;border:2px dashed #cbd6eb;border-radius:13px;padding:10px;color:var(--muted)}.dropzone span{display:inline-block;background:#eaf1ff;padding:5px 8px;margin:3px;border-radius:7px;color:#3f5f9f;font-weight:750}.progressline{display:flex;justify-content:space-between;color:var(--muted);font-size:.84rem}.flashcard{max-width:520px;margin:10px auto;text-align:center;padding:30px;background:linear-gradient(135deg,#eef4ff,#f4edff);border-radius:20px;min-height:210px;display:grid;place-items:center;cursor:pointer}.flashcard .big{font-size:2rem;font-weight:900}.flashcard small{color:var(--muted)}.memorygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;max-width:520px;margin:15px auto}.memorygrid button{height:76px;border-radius:13px;background:#edf1ff;color:#506caa;font-size:1.4rem;font-weight:900}.memorygrid button.revealed{background:#e6f7f0;color:#1d7a57}.badgegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.badgeitem{background:#f7f9ff;border:1px solid var(--line);border-radius:14px;padding:13px;text-align:center}.badgeitem.lock{opacity:.4;filter:grayscale(1)}.badgeitem .emoji{font-size:30px}.toast{position:fixed;right:18px;bottom:18px;background:var(--navy);color:white;padding:13px 18px;border-radius:14px;opacity:0;pointer-events:none;transition:.3s;z-index:200}.toast.show{opacity:1;transform:translateY(-6px)}
+.chatlog{background:#f7f9ff;border:1px solid var(--line);border-radius:15px;padding:13px;min-height:190px;max-height:340px;overflow:auto;margin:14px 0}.bubble{padding:10px 13px;border-radius:14px;margin:8px 0;max-width:88%;white-space:pre-wrap}.bubble.teacher{background:#eaf1ff;margin-right:auto}.bubble.student{background:#eaf8f2;margin-left:auto}.row{display:flex;gap:10px}label{display:block}footer{text-align:center;color:var(--muted);padding:30px 0 12px;font-size:.83rem}
+@media(max-width:800px){header{flex-wrap:wrap}.hero{grid-template-columns:1fr}.hero-art{display:none}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}.lessongrid{grid-template-columns:1fr}.badgegrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.row{flex-wrap:wrap}.row .btn{flex:1}.wrap{padding:12px}nav{order:3;width:100%;overflow:auto;flex-wrap:nowrap}nav button{white-space:nowrap}.grid{grid-template-columns:1fr 1fr}.mission{grid-template-columns:1fr}.memorygrid button{height:62px}}
 
-  <main class="lesson-shell" id="start">
-    <section class="lesson-hero">
-      <div class="hero-text">
-        <p class="lesson-kicker"><span class="live-dot"></span> C6 · Introducing yourself and others</p>
-        <h1>Fifteen minutes.<br>One <em>real</em><br>conversation.</h1>
-        <p>You are at a university club fair in Dhaka. Nila is new and knows nobody. Over four timed rounds you greet her, find common ground, bring your friend Rafi into the circle, and close warmly.</p>
-        <div class="hero-buttons">
-          <button class="primary-button" id="start-lesson">Start the lesson <span>↗</span></button>
-          <a class="outline-button" href="#roleplay">Jump to the role-play</a>
-        </div>
-        <p class="hero-safety">Six stages · a 15-minute role-play · written lines, optional voice · nothing leaves this browser.</p>
-      </div>
-      <div class="hero-scene" aria-label="Illustration of a campus club fair">
-        <div class="scene-sun"></div>
-        <div class="scene-sign">CAMPUS CLUB FAIR <span>WELCOME!</span></div>
-        <div class="scene-table"></div>
-        <div class="scene-person scene-person-a"><i class="head"></i><i class="torso"></i></div>
-        <div class="scene-person scene-person-b"><i class="head"></i><i class="torso"></i></div>
-        <div class="scene-speech">Hi, I’m Nila!<span></span></div>
-        <div class="scene-caption">A familiar setting.<br>A new conversation.</div>
-        <div class="scene-leaf leaf-a"></div>
-        <div class="scene-leaf leaf-b"></div>
-      </div>
-    </section>
+.skip-link{position:absolute;left:10px;top:-60px;background:#111;color:#fff;padding:12px 16px;z-index:1000;border-radius:8px}
+.skip-link:focus{top:10px}
+.access-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;max-width:1180px;margin:8px auto;padding:0 20px;color:var(--navy);font-size:.9rem}
+.access-btn{background:#fff;border:1px solid #9aa8bd;border-radius:9px;padding:7px 10px;color:var(--navy);font-weight:750}
+:focus-visible{outline:3px solid #1b66d1!important;outline-offset:3px}
+body.large-text{font-size:18px}
+body.high-contrast{--navy:#101820;--muted:#344054;--blue:#174ea6;--purple:#5b3c99;--mint:#146c43;--bg:#fff;--line:#64748b}
+body.high-contrast .hero,body.high-contrast .tile,body.high-contrast .panel,body.high-contrast .stat{border:2px solid #263445}
+body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+button:disabled{cursor:not-allowed;opacity:.65}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-    <section class="mission-bar">
-      <div>
-        <span class="mission-label">YOUR MISSION · 15-MINUTE ROLE-PLAY</span>
-        <strong>Make Nila feel welcome — without perfect English.</strong>
-      </div>
-      <div class="mission-outcomes">
-        <span>Greet &amp; introduce</span>
-        <span>Find common ground</span>
-        <span>Introduce a friend</span>
-        <span>Invite &amp; close</span>
-      </div>
-    </section>
+/* ===== Lesson mission timer ===== */
+.mission-clock{display:flex;align-items:center;gap:14px;background:#123c35;color:#eafff5;padding:14px 18px;border-radius:18px;margin-bottom:14px;flex-wrap:wrap}
+.mission-clock strong{font-size:2rem;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.mission-clock .bar{flex:1;min-width:120px;background:#0d2c27}.mission-clock .bar span{background:linear-gradient(90deg,#69c9a8,#ffd36d)}
+.mission-clock button{background:#1d5c4e;color:#eafff5;padding:8px 14px;border-radius:11px;font-weight:800}
+.stagechips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.stagechips button{background:white;border:1px solid var(--line);border-radius:30px;padding:8px 12px;font-weight:800;color:var(--muted);font-size:.8rem}
+.stagechips button.active{background:var(--blue);color:white;border-color:var(--blue)}
+.stagechips button.done{background:#eaf8f2;color:#1d7a57;border-color:#bfe8d6}
+.timerwarn{animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+/* ===== Airport scenario ===== */
+.boardingpass{background:linear-gradient(135deg,#fdf6e3,#eaf2ff);border:1px solid #e3d6b3;border-radius:18px;padding:16px;margin:12px 0;position:relative}
+.boardingpass:before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(#ffd36d,#668ff0);border-radius:18px 0 0 18px}
+.bp-route{display:flex;align-items:center;gap:10px;font-size:1.4rem;font-weight:900;letter-spacing:1px}
+.bp-route small{font-size:.75rem;color:var(--muted);font-weight:750}
+.gategrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.gate{background:white;border:2px solid var(--line);border-radius:15px;padding:14px;text-align:center;cursor:pointer;transition:.15s}
+.gate:hover{border-color:var(--blue);transform:translateY(-2px)}
+.gate .emoji{font-size:28px}
+.gate b{display:block;margin:5px 0}
+.gate.good{border-color:var(--mint);background:#effaf5}
+.gate.bad{border-color:var(--pink);background:#fff2f4}
+.luggagetag{display:inline-block;background:#fff3c9;border:1px dashed #d8b94c;padding:6px 12px;border-radius:10px;font-weight:850;color:#7a5c14}
+.seatmap{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:420px;margin:12px auto}
+.seat{height:52px;border-radius:11px;background:#edf1ff;border:1px solid #d9e2f5;font-weight:800;color:#506caa}
+.seat.empty{background:white;border-style:dashed;color:var(--muted)}
+/* Story chat avatars */
+.storychar{font-size:42px;letter-spacing:6px;text-align:center;margin:4px 0}
+.dialogue{background:#f7f9ff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.dialogue b{color:#506caa}
+.passport{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+.passport h4{margin:0 0 6px;color:#506caa}
+.bigq{font-size:1.05rem;font-weight:850;margin:10px 0}
+</style></head>
+<body>
+<a class="skip-link" href="#mainContent">Skip to learning content</a>
+<div class="access-toolbar" role="region" aria-label="Accessibility settings">
+  <span>Accessibility</span>
+  <button type="button" class="access-btn" onclick="changeTextSize(-1)" aria-label="Decrease text size">A−</button>
+  <button type="button" class="access-btn" onclick="changeTextSize(1)" aria-label="Increase text size">A+</button>
+  <button type="button" class="access-btn" onclick="toggleContrast()" aria-pressed="false" id="contrastBtn">High contrast</button>
+  <button type="button" class="access-btn" onclick="toggleMotion()" aria-pressed="false" id="motionBtn">Reduce motion</button>
+</div>
+<div class="wrap">
+<header><a class="brand" href="#" onclick="tab('home');return false"><span class="logo">✦</span>FluentSpring</a>
+<nav><button class="active" data-id="home" onclick="tab('home')">Home</button><button data-id="learn" onclick="tab('learn')">Learn</button><button data-id="games" onclick="tab('games')">Games</button><button data-id="speaking" onclick="tab('speaking')">Mission</button><button data-id="listening" onclick="tab('listening')">Listening</button><button data-id="teacher" onclick="tab('teacher')">AI Teacher</button><button data-id="progress" onclick="tab('progress')">My progress</button></nav>
+<div class="user"><span class="avatar">🧑‍✈️</span> Traveller</div></header>
+<main id="mainContent" tabindex="-1">
+<section id="home" class="active">
+<div class="hero"><div><div class="eyebrow">WELCOME TO YOUR ENGLISH ADVENTURE</div><h1>Board the English<br>flight & speak up! ✈️</h1><p>Today your English is your boarding pass. Learn how to introduce yourself and others — then fly a full 15-minute mission through Skyport International Airport.</p><button class="btn" onclick="tab('learn')">Start today's lesson →</button> <button class="btn secondary" onclick="tab('speaking')">Go to the airport</button></div><div class="hero-art">✈️🛫🌍</div></div>
+<div class="stats"><div class="stat"><div class="ico">⚡</div><div><strong id="xp">0 XP</strong><span class="muted">Experience</span></div></div><div class="stat"><div class="ico">🏅</div><div><strong id="badgeCount">0</strong><span class="muted">Badges</span></div></div><div class="stat"><div class="ico">🎯</div><div><strong id="doneCount">0</strong><span class="muted">Activities</span></div></div><div class="stat"><div class="ico">🌟</div><div><strong id="level">Starter</strong><span class="muted">Your level</span></div></div></div>
+<div class="head"><div><h2>Today's mission 🎯</h2><p>Get everyone on board — introduce yourself, your co-pilot and a lost passenger.</p></div><span class="tag">15 min · +80 XP</span></div>
+<div class="mission"><div><span class="tag">REAL-LIFE SPEAKING</span><h3>Flight FS101 · The Introduction Flight</h3><div class="muted">Four checkpoints at Skyport Airport. One live timer. Can you board everyone before the gate closes?</div></div><button class="btn" onclick="tab('speaking')">Start mission</button></div>
+<div class="head"><div><h2>Why an airport? 🛫</h2><p>An airport is full of introductions — you introduce yourself at check-in, your co-pilot to the crew, and strangers to each other at the gate. It's the perfect place to practise today's English.</p></div></div>
+<div class="grid">
+<div class="tile" onclick="tab('learn')"><div class="emoji">📖</div><h3>Mini lessons</h3><p>Understand expressions with clear teacher explanations.</p></div>
+<div class="tile" onclick="tab('games')"><div class="emoji">🧩</div><h3>Sentence builder</h3><p>Put words in order and build correct sentences.</p></div>
+<div class="tile" onclick="tab('games')"><div class="emoji">🃏</div><h3>Flashcard flip</h3><p>Discover useful words and remember their meanings.</p></div>
+<div class="tile" onclick="tab('games')"><div class="emoji">🧠</div><h3>Memory match</h3><p>Match English words with their meanings.</p></div>
+<div class="tile" onclick="tab('games')"><div class="emoji">⚡</div><h3>Quick quiz</h3><p>Test what you know with friendly feedback.</p></div>
+<div class="tile" onclick="tab('teacher')"><div class="emoji">🤖</div><h3>Conversation Teacher</h3><p>Practise everyday conversations and get helpful corrections.</p></div>
+</div>
+</section>
+<section id="learn">
+<div class="head"><div><span class="eyebrow">LESSON 01 · COMMUNICATION</span><h2>Introducing yourself and others 👋</h2><p>Think of every introduction as a flight: <b>take off</b> (greet), <b>cruise</b> (connect), <b>bring a passenger aboard</b> (introduce), and <b>land safely</b> (close warmly).</p></div><span class="tag">Beginner</span></div>
+<div class="lessongrid"><div class="panel"><h3>Today's flight plan</h3>
+<div class="lesson"><b>1. Take off — open the conversation ✈️</b><p>Start with a greeting and your name, like a plane lifting off the runway.</p><div class="example">“Hi, I'm Tanvir. Nice to meet you!”</div></div>
+<div class="lesson"><b>2. Cruise — connect at cruising altitude ☁️</b><p>Share one detail and ask a question, keeping the conversation flying smoothly.</p><div class="example">“I'm studying engineering. What about you?”</div></div>
+<div class="lesson"><b>3. Board a passenger — introduce another person 🛫</b><p>Say both people's names and explain how you know them, like helping someone find their seat.</p><div class="example">“This is my friend Sadia. Sadia, meet Tanvir.”</div></div>
+<div class="lesson"><b>4. Land safely — invite and close politely 🛬</b><p>Make the other person feel included before you say goodbye.</p><div class="example">“Would you like to join us?” · “It was lovely meeting you!”</div></div>
+<button class="btn" onclick="tab('games')">Practise with games →</button></div>
+<div class="panel"><h3>Teacher's corner 💡</h3><p><b>Remember:</b> A good introduction is a two-way exchange. Share a little about yourself, then give the other person a chance to speak.</p>
+<div class="lesson"><b>The flight analogy</b><p>Greeting = take-off (the exciting start). Sharing details = cruising (keeping it smooth). Introducing others = boarding (helping someone aboard). Closing politely = landing (bringing everyone down safely). If you skip the landing, the conversation crashes!</p></div>
+<div class="lesson"><b>Real life: where does this happen?</b><p>✈️ At the airport check-in desk · 🎓 Meeting a new classmate · 💼 A job interview · 🏏 Joining a new cricket team · 🎉 A family wedding. Every place needs the same four moves.</p></div>
+<div class="lesson"><b>Useful language</b><p>“I'm interested in…” · “Have you met…?” · “What about you?” · “See you around!”</p></div>
+<div class="lesson"><b>Common mistake</b><p>❌ “I am study English.”</p><p>✅ “I am studying English.”</p><span class="muted">Use am/is/are + verb-ing for an action happening now.</span></div></div></div>
+</section>
+<section id="games">
+<div class="head"><div><span class="eyebrow">THE LEARNING ARCADE</span><h2>Pick a game and earn XP 🎮</h2><p>Play, practise and learn at your own pace.</p></div><span class="pill">No pressure · Just progress</span></div>
+<div class="grid">
+<div class="tile" onclick="game('builder')"><div class="emoji">🧩</div><h3>Sentence Builder</h3><p>Unscramble words to make a correct sentence.</p><span class="tag">Grammar · +20 XP</span></div>
+<div class="tile" onclick="game('flash')"><div class="emoji">🃏</div><h3>Flashcard Flip</h3><p>Flip cards to reveal meanings and examples.</p><span class="tag">Vocabulary · +10 XP</span></div>
+<div class="tile" onclick="game('memory')"><div class="emoji">🧠</div><h3>Memory Match</h3><p>Find matching words and definitions.</p><span class="tag">Vocabulary · +20 XP</span></div>
+<div class="tile" onclick="game('quiz')"><div class="emoji">⚡</div><h3>Quick Quiz</h3><p>Choose the most natural English expression.</p><span class="tag">Communication · +10 XP</span></div>
+<div class="tile" onclick="game('odd')"><div class="emoji">🦉</div><h3>Odd One Out</h3><p>Spot the word that doesn't belong.</p><span class="tag">Vocabulary · +10 XP</span></div>
+<div class="tile" onclick="game('gate')"><div class="emoji">🛃</div><h3>Gate Decision</h3><p>Help passengers pick the right words at the gate.</p><span class="tag">Situations · +15 XP</span></div></div>
+<div id="gameArea" style="margin-top:16px"></div>
+</section>
+<section id="speaking">
+<div class="head"><div><span class="eyebrow">SKYPORT INTERNATIONAL · FLIGHT FS101</span><h2>The Introduction Flight ✈️</h2><p>Four checkpoints, one 15-minute boarding window. Your English decides who flies.</p></div><span class="tag">Role-play · 15 min</span></div>
+<div class="mission-clock" role="timer" aria-live="polite">
+<strong id="missionClock">15:00</strong>
+<div class="bar" style="flex:1"><span id="missionBar"></span></div>
+<button id="missionToggle" onclick="toggleMissionTimer()">▶ Start clock</button>
+</div>
+<div class="stagechips" id="stageChips" aria-label="Mission checkpoints"></div>
+<div class="boardingpass">
+<div class="bp-route">DAC ✈ SYD <small>· Skyport International · Gate 7 · Flight FS101</small></div>
+<p class="muted" style="margin:6px 0 0">Passenger: <b>You</b> · Mission: introduce everyone before boarding closes · Baggage: one friendly greeting, one interesting detail, one clear introduction</p>
+</div>
+<div class="panel" id="checkpointPanel">
+<div class="storychar" id="checkpointArt">🧑‍✈️</div>
+<div class="dialogue"><b id="speaker">Check-in officer says:</b><p id="line">“Good morning! Welcome to Skyport. Are you flying with us today?”</p></div>
+<h3 class="bigq" id="checkpointTask">What would you say?</h3>
+<div class="answers" id="storyAnswers"></div>
+<div id="storyFeedback" class="feedback"></div>
+<div style="margin-top:12px"><button class="btn secondary" onclick="resetStory()">Restart mission ↻</button></div>
+</div>
+</section>
+<section id="listening">
+<div class="head"><div><span class="eyebrow">LISTENING STUDIO · AUDIO CHALLENGE</span><h2>Listen carefully! 🎧</h2><p>Overhead announcements at Skyport — listen for the key information.</p></div><span class="tag">Audio comprehension</span></div>
+<div class="panel">
+<div class="game-top"><h3 id="listenTitle">Announcement 1 · At the departure gate</h3><span class="pill" id="listenCount">1 of 3</span></div>
+<div class="dialogue"><p id="listenScript">“Passengers for flight FS101, boarding begins at gate 7 at half past three. Please have your passport ready.”</p></div>
+<div class="row" style="gap:9px;flex-wrap:wrap"><button class="btn" onclick="playListening()">▶ Play announcement</button><button class="btn secondary" onclick="playListening()">↻ Play again</button></div>
+<p class="muted">Audio is spoken by your device's built-in English voice. Available voices depend on your browser and device.</p>
+<h3 id="listenQuestion">When does boarding begin?</h3><div class="answers" id="listeningChoices"></div><div class="feedback" id="listeningFeedback"></div>
+<div style="margin-top:14px"><button class="btn secondary" onclick="nextListening()">Next announcement →</button></div>
+</div>
+</section>
+<section id="teacher">
+<div class="head"><div><span class="eyebrow">YOUR FRIENDLY SPEAKING PARTNER</span><h2>Conversation Teacher 🤖</h2><p>Practise natural English in a relaxed, supportive chat.</p></div><span class="tag">Interactive role-play</span></div>
+<div class="panel">
+<div class="row" style="justify-content:space-between;align-items:center;flex-wrap:wrap"><div><b>Today's situation: Meeting a fellow traveller at the boarding gate</b><p class="muted">Answer in English. You can type or use your microphone.</p></div><button class="btn secondary" onclick="resetTeacher()">Restart chat ↻</button></div>
+<div id="chatLog" class="chatlog" role="log" aria-label="Conversation with your English tutor" aria-live="polite" aria-relevant="additions"></div>
+<div class="row" style="gap:8px;align-items:stretch"><input id="chatInput" type="text" aria-label="Your message to the English tutor" placeholder="Type your answer in English…" style="flex:1;min-width:160px;padding:12px;border:1px solid var(--line);border-radius:12px" onkeydown="if(event.key==='Enter')sendTeacherMessage()"><button class="btn" onclick="sendTeacherMessage()">Send</button><button class="btn secondary" onclick="voiceToChat()" aria-label="Speak your answer using microphone" title="Speak your answer">🎙️</button></div>
+<div class="lesson" style="margin-top:14px"><b>Teacher feedback</b><p id="teacherFeedback">I'll help you make your sentences clearer and more natural.</p></div>
+<div class="lesson"><b>Live AI tutor</b><p class="muted">When the site is deployed with its secure backend, this chat gives open-ended replies, grammar corrections, vocabulary upgrades and natural alternatives. Your API key stays on the server, never in this page.</p><p class="muted" id="aiStatus" role="status" aria-live="polite">Checking AI tutor connection…</p><p class="muted">You can use the text chat without a microphone. Voice input is optional.</p></div>
+</div>
+</section>
+<section id="progress">
+<div class="head"><div><span class="eyebrow">YOUR LEARNING JOURNEY</span><h2>Look how far you've come! 🏆</h2><p>Progress grows with every lesson and every try.</p></div></div>
+<div class="panel"><div class="stats"><div class="stat"><div class="ico">⚡</div><div><strong id="xp3">0 XP</strong><span class="muted">Total XP</span></div></div><div class="stat"><div class="ico">🏅</div><div><strong id="badge3">0</strong><span class="muted">Badges</span></div></div><div class="stat"><div class="ico">🎯</div><div><strong id="done3">0</strong><span class="muted">Activities</span></div></div><div class="stat"><div class="ico">🌱</div><div><strong id="level3">Starter</strong><span class="muted">Current level</span></div></div></div>
+<h3>Next level progress</h3><div class="progressline"><span id="levelLabel">Starter</span><b id="xpLabel">0 / 100 XP</b></div><div class="bar"><span id="levelBar"></span></div>
+<h3 style="margin-top:24px">Your achievement shelf</h3><div class="badgegrid" id="badgeShelf"></div><p class="muted">Progress is saved in this browser on this device. This demo does not create online student accounts.</p></div>
+</section>
+<p class="muted" style="text-align:center">Learning access: keyboard-friendly controls, optional microphone, text alternatives for audio, and adjustable display settings. AI feedback is educational support, not a perfect authority.</p></main><footer>FluentSpring · Learn. Play. Speak. Grow. 🌱</footer></div><div class="toast" id="toast">Nice work! XP added ✨</div>
+<script>
+let xp=+(localStorage.fs_xp2||0),done=+(localStorage.fs_done2||0),earned=new Set(JSON.parse(localStorage.fs_badges2||"[]")),completed=new Set(JSON.parse(localStorage.fs_completed2||"[]"));
+const badgeDefs=[["first","🌱","First Steps","Complete your first activity"],["builder","🧩","Sentence Builder","Build a correct sentence"],["quiz","⚡","Quick Thinker","Finish a quiz"],["speaker","✈️","Friendly Speaker","Complete the airport mission"],["explorer","🗺️","Game Explorer","Try three different games"],["word","📚","Word Collector","Flip a vocabulary card"]];
+function save(){localStorage.fs_xp2=xp;localStorage.fs_done2=done;localStorage.fs_badges2=JSON.stringify([...earned]);localStorage.fs_completed2=JSON.stringify([...completed]);}
+function award(id,points){if(completed.has(id)){toast("You've already earned XP for this activity. Keep practising!");return}completed.add(id);xp+=points;done++;if(done>=1)earned.add("first");save();render();toast("Great work! +"+points+" XP 🎉")}
+function badge(id){earned.add(id);save();render()}
+function levelName(){return xp>=300?"Fluency Explorer":xp>=150?"Confident Communicator":xp>=50?"Curious Learner":"Starter"}
+function render(){["xp","xp3"].forEach(i=>document.getElementById(i).textContent=xp+" XP");["badgeCount","badge3"].forEach(i=>document.getElementById(i).textContent=earned.size);["doneCount","done3"].forEach(i=>document.getElementById(i).textContent=done);["level","level3"].forEach(i=>document.getElementById(i).textContent=levelName());let p=xp%100;document.getElementById("levelBar").style.width=p+"%";document.getElementById("levelLabel").textContent=levelName();document.getElementById("xpLabel").textContent=p+" / 100 XP";document.getElementById("badgeShelf").innerHTML=badgeDefs.map(([id,e,n,d])=>`<div class="badgeitem ${earned.has(id)?"":"lock"}"><div class="emoji">${e}</div><b>${n}</b><div class="muted">${d}</div></div>`).join("")}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),2400)}
+function tab(id){document.querySelectorAll("main section").forEach(s=>s.classList.toggle("active",s.id===id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.id===id));window.scrollTo({top:0,behavior:"smooth"})}
+const area=()=>document.getElementById("gameArea");
+function game(type){let a=area();a.innerHTML="";if(type==="builder"){a.innerHTML=`<div class="panel"><div class="game-top"><h3>🧩 Sentence Builder</h3><span class="tag">+20 XP</span></div><p>Tap the words in the correct order: “I am studying English.”</p><div class="wordbank" id="words"></div><div class="dropzone" id="built">Your sentence appears here…</div><p><button class="btn" onclick="checkBuild()">Check sentence</button> <button class="btn secondary" onclick="game('builder')">Reset</button></p><div class="feedback" id="buildFeedback"></div></div>`;let arr=["studying","English.","I","am"];arr.sort(()=>Math.random()-.5);document.getElementById("words").innerHTML=arr.map(w=>`<button onclick="addWord(this,'${w}')">${w}</button>`).join("");window.build=[]}
+else if(type==="flash"){let cards=[["Boarding pass","The card that lets you get on a plane.","Keep your boarding pass ready at the gate."],["Introduce","To tell someone another person's name.","Let me introduce my co-pilot, Sadia."],["Passenger","A person travelling in a vehicle or plane.","Every passenger needs a seat number."],["Invite","To ask someone to join an activity.","Would you like to join us for lunch?"]];window.flashIndex=0;window.flashSide=false;window.flashCards=cards;a.innerHTML=`<div class="panel"><h3>🃏 Flashcard Flip</h3><p class="muted">Tap the card to reveal the meaning. Move through all four words.</p><div class="flashcard" onclick="flipCard()"><div><div class="big" id="flashWord">Boarding pass</div><small id="flashHint">Tap to flip</small></div></div><div style="text-align:center"><button class="btn secondary" onclick="nextCard(-1)">← Previous</button> <button class="btn" onclick="nextCard(1)">Next word →</button></div><div class="feedback show" id="flashFeedback">Learn the word, read the example aloud, then move on.</div></div>`}
+else if(type==="memory"){let pairs=[["Hello","A greeting"],["Boarding","Getting on the plane"],["Introduce","Give someone's name"],["Invite","Ask to join"]];let deck=pairs.flatMap((p,i)=>[{id:i,v:p[0]},{id:i,v:p[1]}]).sort(()=>Math.random()-.5);window.memDeck=deck;window.memOpen=[];window.memMatched=[];a.innerHTML=`<div class="panel"><h3>🧠 Memory Match</h3><p>Find each word and its matching meaning. Select two cards at a time.</p><div class="memorygrid" id="memoryGrid">${deck.map((c,i)=>`<button onclick="memPick(${i})" id="mem${i}">?</button>`).join("")}</div><div id="memStatus" class="muted" style="text-align:center">0 of 4 pairs matched</div></div>`}
+else if(type==="quiz"){a.innerHTML=`<div class="panel"><h3>⚡ Quick Quiz</h3><p><b>Which sentence politely introduces your co-pilot?</b></p><div class="answers" id="quizOpts"><button class="answer" onclick="quizPick(this,false)">“You, meet Sadia.”</button><button class="answer" onclick="quizPick(this,true)">“This is my friend Sadia.”</button><button class="answer" onclick="quizPick(this,false)">“Sadia is there.”</button></div><div class="feedback" id="quizFb"></div></div>`}
+else if(type==="odd"){a.innerHTML=`<div class="panel"><h3>🦉 Odd One Out</h3><p>Which word does NOT belong with the others?</p><div class="answers" id="oddOpts"><button class="answer" onclick="oddPick(this,false)">Hello</button><button class="answer" onclick="oddPick(this,false)">Good morning</button><button class="answer" onclick="oddPick(this,true)">Passport photo</button><button class="answer" onclick="oddPick(this,false)">Hi</button></div><div class="feedback" id="oddFb"></div></div>`}
+else if(type==="gate"){a.innerHTML=`<div class="panel"><h3>🛃 Gate Decision</h3><p>A passenger at Gate 7 says: <b>“Excuse me, I can't find my seat. Can you help me?”</b> What is the best reply?</p><div class="answers" id="gateOpts"><button class="answer" onclick="gatePick(this,false)">“Find it yourself.”</button><button class="answer" onclick="gatePick(this,true)">“Of course! Your seat is 24C, by the window. Come with me.”</button><button class="answer" onclick="gatePick(this,false)">“I'm busy right now.”</button></div><div class="feedback" id="gateFb"></div></div>`}}
+function addWord(btn,w){btn.disabled=true;window.build.push(w);document.getElementById("built").innerHTML=window.build.map(x=>`<span>${x}</span>`).join("")}
+function checkBuild(){let f=document.getElementById("buildFeedback");f.classList.add("show");if(window.build.join(" ")==="I am studying English."){f.textContent="Perfect sentence! Remember: subject + am/is/are + verb-ing. +20 XP";award("builder",20);badge("builder")}else f.textContent="Not quite. Try: I → am → studying → English."}
+function flipCard(){window.flashSide=!window.flashSide;let c=window.flashCards[window.flashIndex];document.getElementById("flashWord").textContent=window.flashSide?c[1]:c[0];document.getElementById("flashHint").textContent=window.flashSide?c[2]:"Tap to reveal the meaning"}
+function nextCard(n){window.flashIndex=(window.flashIndex+n+4)%4;window.flashSide=false;let c=window.flashCards[window.flashIndex];document.getElementById("flashWord").textContent=c[0];document.getElementById("flashHint").textContent="Tap to flip";if(window.flashIndex===3){award("flashcards",10);badge("word")}}
+function memPick(i){if(window.memMatched.includes(i)||window.memOpen.includes(i)||window.memOpen.length===2)return;window.memOpen.push(i);let c=window.memDeck[i];let b=document.getElementById("mem"+i);b.textContent=c.v;b.classList.add("revealed");if(window.memOpen.length===2){let [x,y]=window.memOpen;if(window.memDeck[x].id===window.memDeck[y].id){window.memMatched.push(x,y);window.memOpen=[];document.getElementById("memStatus").textContent=(window.memMatched.length/2)+" of 4 pairs matched";if(window.memMatched.length===8){document.getElementById("memStatus").textContent="All matched! Great memory! +20 XP";award("memory",20)}}else setTimeout(()=>{[x,y].forEach(j=>{document.getElementById("mem"+j).textContent="?";document.getElementById("mem"+j).classList.remove("revealed")});window.memOpen=[]},850)}}
+function quizPick(b,ok){document.querySelectorAll("#quizOpts .answer").forEach(x=>x.disabled=true);b.classList.add(ok?"good":"bad");let f=document.getElementById("quizFb");f.classList.add("show");f.textContent=ok?"Correct! “This is my friend Sadia” is natural and friendly. +10 XP":"Try again. A clear introduction includes a friendly phrase and the person's name.";if(ok){award("quiz",10);badge("quiz")}}
+function oddPick(b,ok){document.querySelectorAll("#oddOpts .answer").forEach(x=>x.disabled=true);b.classList.add(ok?"good":"bad");let f=document.getElementById("oddFb");f.classList.add("show");f.textContent=ok?"Correct! “Passport photo” is a thing; the others are greetings. +10 XP":"Not quite. The other three words are greetings.";if(ok)award("odd",10)}
+function gatePick(b,ok){document.querySelectorAll("#gateOpts .answer").forEach(x=>x.disabled=true);b.classList.add(ok?"good":"bad");let f=document.getElementById("gateFb");f.classList.add("show");f.textContent=ok?"Perfect passenger service! Clear, kind and helpful. +15 XP":"Think about which reply answers the question and offers help.";if(ok)award("gate",15)}
 
-    <section class="framework-strip" aria-label="Six-stage lesson design">
-      <span class="framework-label">Lesson design</span>
-      <ol id="framework-list">
-        <li><b>1</b><span>Warm-up</span></li>
-        <li><b>2</b><span>Delivery</span></li>
-        <li><b>3</b><span>Guided practice</span></li>
-        <li><b>4</b><span>Main task</span></li>
-        <li><b>5</b><span>Review</span></li>
-        <li><b>6</b><span>Feedback</span></li>
-      </ol>
-    </section>
+/* ===== The Introduction Flight: 15-minute airport role-play ===== */
+const checkpoints=[
+ {art:"🧑‍✈️",speaker:"Check-in officer says:",line:"“Good morning! Welcome to Skyport. Are you flying with us today?”",task:"Take off: greet the officer and give your name.",xp:20,
+  opts:[["“Good morning! Yes, I'm Tanvir. It's my first flight with Skyport.”",true],["“Give me my ticket.”",false],["“Why do you need my name?”",false]],
+  good:"The officer smiles: “Thank you, Tanvir. You're all checked in — gate 7, seat 24C.” You took off smoothly: greeting + name.",
+  chip:"Check-in · Take off"},
+ {art:"👩‍🦱",speaker:"Fellow passenger at the gate says:",line:"“Hi! I'm Sadia. I'm sitting next to you — 24B! What do you do?”",task:"Cruise: share one detail about yourself and ask her a question.",xp:20,
+  opts:[["“Nice to meet you, Sadia! I'm studying engineering. What about you?”",true],["“I don't tell strangers.”",false],["“Nothing much.”",false]],
+  good:"Sadia laughs: “Engineering! I'm a pilot trainee — maybe I'll fly your plane one day!” You kept the conversation cruising: detail + question.",
+  chip:"Gate · Cruise"},
+ {art:"🧑‍✈️",speaker:"Your co-pilot arrives, waving:",line:"“Hey! Sorry I'm late — traffic on the runway road!”",task:"Board a passenger: introduce your co-pilot Sadia to your friend Imran.",xp:20,
+  opts:[["“Sadia, this is my friend Imran. Imran, meet Sadia — she's a pilot trainee!”",true],["“You two talk.”",false],["“Imran… this is… um… someone.”",false]],
+  good:"Imran: “A pilot trainee! Amazing to meet you, Sadia.” You introduced BOTH names and gave them something to talk about. Passenger boarded!",
+  chip:"Cabin · Board"},
+ {art:"🛬",speaker:"The captain announces:",line:"“Final boarding call for flight FS101. All passengers, please proceed to gate 7.”",task:"Land safely: invite everyone to sit together and close politely.",xp:20,
+  opts:[["“Would you like to sit together, Sadia? Imran, it was lovely meeting you!”",true],["“Bye.”",false],["“Don't follow me.”",false]],
+  good:"The cabin door closes. Everyone smiles — you greeted, connected, introduced and closed. Flight FS101 is ready for take-off! 🛫",
+  chip:"Departure · Land"}];
+let storyStep=0;
+function drawStageChips(){document.getElementById("stageChips").innerHTML=checkpoints.map((c,i)=>`<button class="${i<storyStep?"done":i===storyStep?"active":""}" onclick="jumpCheckpoint(${i})" ${i>storyStep?"disabled":""}>${i+1}. ${c.chip}</button>`).join("")}
+function drawStory(){const s=checkpoints[storyStep];document.getElementById("checkpointArt").textContent=s.art;document.getElementById("speaker").textContent=s.speaker;document.getElementById("line").textContent=s.line;document.getElementById("checkpointTask").textContent=s.task;document.getElementById("storyAnswers").innerHTML=s.opts.map((o,i)=>`<button class="answer" onclick="storyPick(${i})">${o[0]}</button>`).join("");document.getElementById("storyFeedback").classList.remove("show");drawStageChips()}
+function storyPick(i){const s=checkpoints[storyStep],f=document.getElementById("storyFeedback");f.classList.add("show");if(s.opts[i][1]){f.textContent=s.good;if(!completed.has("story"+storyStep)){xp+=s.xp;done++;completed.add("story"+storyStep);save();render()}document.getElementById("storyAnswers").innerHTML=`<button class="btn" onclick="nextStory()">${storyStep===3?"Complete the flight 🛫":"Next checkpoint →"}</button>`}else f.textContent="Try a reply that is friendly and keeps the conversation flying."}
+function nextStory(){if(storyStep<3){storyStep++;drawStory()}else{award("storyfinish",20);badge("speaker");stopMissionClock(true);document.getElementById("storyFeedback").textContent="Mission complete! You welcomed, connected, introduced and closed. You're a Friendly Speaker! ✈️";document.getElementById("storyFeedback").classList.add("show");document.getElementById("storyAnswers").innerHTML="";drawStageChips()}}
+function resetStory(){storyStep=0;stopMissionClock(true);drawStory()}
+function jumpCheckpoint(i){if(i<=storyStep){storyStep=i;drawStory()}}
+/* Mission clock: 15 minutes, whole lesson */
+let missionLeft=900,missionTimer=null,missionRunning=false;
+function paintMissionClock(){const m=Math.floor(missionLeft/60),s=missionLeft%60;document.getElementById("missionClock").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");document.getElementById("missionBar").style.width=((900-missionLeft)/900*100)+"%";document.getElementById("missionClock").classList.toggle("timerwarn",missionLeft<=120)}
+function toggleMissionTimer(){if(missionRunning){clearInterval(missionTimer);missionRunning=false;document.getElementById("missionToggle").textContent="▶ Resume clock"}else{missionTimer=setInterval(missionTick,1000);missionRunning=true;document.getElementById("missionToggle").textContent="⏸ Pause clock"}}
+function missionTick(){missionLeft=Math.max(0,missionLeft-1);paintMissionClock();if(missionLeft===0){clearInterval(missionTimer);missionRunning=false;document.getElementById("missionToggle").textContent="↻ Restart clock";toast("Boarding window closed! Finish your last checkpoint.")}}
+function stopMissionClock(reset){clearInterval(missionTimer);missionTimer=null;missionRunning=false;if(reset){missionLeft=900}paintMissionClock();document.getElementById("missionToggle").textContent="▶ Start clock"}
 
-    <div class="lesson-layout">
-      <aside class="lesson-rail">
-        <p class="rail-title">SIX STAGES · TODAY’S ROUTE</p>
-        <ol id="lesson-route">
-          <li class="route-active"><span>1</span><div><strong>Warm-up</strong><small>Read the social moment</small></div><time>2 min</time></li>
-          <li><span>2</span><div><strong>Delivery</strong><small>Four moves for a hello</small></div><time>2 min</time></li>
-          <li><span>3</span><div><strong>Guided practice</strong><small>Rounds 1–2, with support</small></div><time>6 min</time></li>
-          <li><span>4</span><div><strong>Main task</strong><small>Rounds 3–4, more independence</small></div><time>9 min</time></li>
-          <li><span>5</span><div><strong>Review</strong><small>Check understanding</small></div><time>1 min</time></li>
-          <li><span>6</span><div><strong>Feedback</strong><small>Report + exit ticket</small></div><time>2 min</time></li>
-        </ol>
-        <div class="rail-note">
-          <span class="rail-note-star">✳</span>
-          <p>Good English is not about sounding perfect. It is about helping people feel included.</p>
-        </div>
-      </aside>
+// Voice tools: speech synthesis is used for model audio; recognition is browser-dependent.
+const pronTargets=["Nice to meet you. I'm studying engineering.","This is my friend Sadia. She's a pilot trainee.","Would you like to join us for lunch?","It was lovely meeting you!"];
+let pronIndex=0;
+function speakText(text){
+  if(!('speechSynthesis' in window)){toast("Audio playback is not supported in this browser.");return}
+  speechSynthesis.cancel();
+  const utter=new SpeechSynthesisUtterance(text);
+  utter.lang="en-US";utter.rate=0.88;
+  const voices=speechSynthesis.getVoices();
+  const voice=voices.find(v=>/^en(-|_)/i.test(v.lang));
+  if(voice)utter.voice=voice;
+  speechSynthesis.speak(utter);
+}
+const listeningItems=[
+{title:"Announcement 1 · At the departure gate",script:"Passengers for flight FS101, boarding begins at gate 7 at half past three. Please have your passport ready.",question:"When does boarding begin?",opts:["At half past three","At half past four","At three o'clock sharp"],correct:0,why:"The announcement says boarding begins at half past three."},
+{title:"Announcement 2 · Lost luggage",script:"Attention please. The blue suitcase from flight FS204 is waiting at the information desk near pillar nine.",question:"Where is the blue suitcase?",opts:["At gate 7","At the information desk","On the plane"],correct:1,why:"The announcement says it is waiting at the information desk."},
+{title:"Announcement 3 · Final call",script:"This is the final call for Mr Tanvir Ahmed, flying to Sydney. Please proceed immediately to gate 7, where your plane is about to depart.",question:"What must Mr Tanvir do?",opts:["Change his ticket","Go to gate 7 immediately","Wait for another flight"],correct:1,why:"It is the final call, so he must proceed to gate 7 immediately."}];
+let listeningIndex=0,listeningAnswered=false;
+function drawListening(){
+ const q=listeningItems[listeningIndex];listeningAnswered=false;
+ document.getElementById("listenTitle").textContent=q.title;
+ document.getElementById("listenCount").textContent=(listeningIndex+1)+" of "+listeningItems.length;
+ document.getElementById("listenScript").textContent="“"+q.script+"”";
+ document.getElementById("listenQuestion").textContent=q.question;
+ document.getElementById("listeningChoices").innerHTML=q.opts.map((v,i)=>`<button class="answer" onclick="answerListening(${i})">${v}</button>`).join("");
+ document.getElementById("listeningFeedback").classList.remove("show");
+}
+function playListening(){speakText(listeningItems[listeningIndex].script)}
+function answerListening(i){
+ if(listeningAnswered)return;listeningAnswered=true;
+ const q=listeningItems[listeningIndex],ok=i===q.correct;
+ const buttons=document.querySelectorAll("#listeningChoices .answer");
+ buttons[i].classList.add(ok?"good":"bad");
+ buttons.forEach(b=>b.disabled=true);
+ const f=document.getElementById("listeningFeedback");f.classList.add("show");
+ f.textContent=(ok?"Correct! ":"Not quite. ")+q.why+(ok?" +10 XP":"");
+ if(ok)award("listening-"+listeningIndex,10);
+}
+function nextListening(){listeningIndex=(listeningIndex+1)%listeningItems.length;drawListening()}
 
-      <div class="lesson-content">
-        <section class="lesson-panel warmup-panel" id="warmup" data-stage="1">
-          <div class="panel-heading">
-            <span class="stage-number">1</span>
-            <div><p class="panel-kicker">Stage 1 · Warm-up · 2 minutes</p><h2>Read the room.</h2></div>
-            <span class="stage-state">ACTIVATE</span>
-          </div>
-          <p class="panel-intro">It is a busy afternoon at the university club fair. You are beside the debate society table. A new student is standing alone, holding a campus map.</p>
-          <div class="context-note">
-            <span class="context-icon">A</span>
-            <p><strong>Look beyond the name.</strong> The crowded fair, the shared map, the student societies, and the choice to approach someone all shape how we greet them.</p>
-          </div>
-          <h3 class="question-title">What could you say to make this student feel welcome?</h3>
-          <div class="warmup-options" id="warmup-options">
-            <button class="warmup-option" data-correct="true">“Hi! Is this your first time at the club fair?”</button>
-            <button class="warmup-option" data-correct="false">“Why are you standing there alone?”</button>
-            <button class="warmup-option" data-correct="false">Say nothing; wait for them to leave.</button>
-          </div>
-          <div class="teacher-feedback" id="warmup-feedback" aria-live="polite">Choose one. We’ll think about why it works.</div>
-          <button class="text-advance" data-next="toolkit">Stage 2 · Delivery <span>→</span></button>
-        </section>
-
-        <section class="lesson-panel" id="toolkit" data-stage="2">
-          <div class="panel-heading">
-            <span class="stage-number">2</span>
-            <div><p class="panel-kicker">Stage 2 · Delivery · 2 minutes</p><h2>Four moves, one warm hello.</h2></div>
-            <span class="stage-state">PRESENT THE SKILL</span>
-          </div>
-          <p class="panel-intro">These four lines are the backbone of the role-play. Listen, then say them in your own way.</p>
-          <div class="phrase-cards">
-            <article><span class="phrase-mark">01</span><h3>Open</h3><p>“Hi, I’m <b>Nila</b>.”</p><button class="hear-phrase" data-say="Hi, I'm Nila." data-voice="female">Hear Nila <span>♫</span></button></article>
-            <article><span class="phrase-mark">02</span><h3>Connect</h3><p>“I’m studying <b>business</b>.”</p><button class="hear-phrase" data-say="I'm studying business." data-voice="female">Hear Nila <span>♫</span></button></article>
-            <article><span class="phrase-mark">03</span><h3>Introduce</h3><p>“This is my friend <b>Rafi</b>.”</p><button class="hear-phrase" data-say="This is my friend Rafi." data-voice="female">Hear Nila <span>♫</span></button></article>
-            <article><span class="phrase-mark">04</span><h3>Invite</h3><p>“Would you like to join us?”</p><button class="hear-phrase" data-say="Would you like to join us?" data-voice="male">Hear Rafi <span>♫</span></button></article>
-          </div>
-          <div class="language-note">
-            <strong>Local language, real choice</strong>
-            <p>At a club fair in Bangladesh, students may greet each other in Bangla first, then switch to English for practice. Choose language to include someone — not to test where they are from.</p>
-          </div>
-          <div class="mini-check">
-            <label for="notice-answer">Quick check: which phrase introduces another person?</label>
-            <select id="notice-answer">
-              <option value="">Choose a phrase…</option>
-              <option value="open">“Hi, I’m Nila.”</option>
-              <option value="introduce">“This is my friend Rafi.”</option>
-              <option value="invite">“Would you like to join us?”</option>
-            </select>
-            <span id="notice-feedback" aria-live="polite"></span>
-          </div>
-          <button class="text-advance" data-next="roleplay">Stages 3–4 · 15-minute role-play <span>→</span></button>
-        </section>
-
-        <section class="lesson-panel rp-studio" id="roleplay" data-stage="3">
-          <div class="panel-heading">
-            <span class="stage-number">3·4</span>
-            <div><p class="panel-kicker">Stages 3–4 · Guided practice + main task · 15 minutes</p><h2>Live the conversation.</h2></div>
-            <span class="stage-state">GUIDED → MAIN</span>
-          </div>
-          <p class="panel-intro">Four rounds, fifteen minutes. Rounds 1–2 are <strong>guided practice</strong> — criteria, starters and a model line are provided. Rounds 3–4 are the <strong>main task</strong> — you take more of the conversation yourself. Nila and Rafi answer every line, and each round is scored so you finish with a report you can show your teacher.</p>
-
-          <div class="rp-setup" id="rp-setup">
-            <h3>Choose your role</h3>
-            <div class="role-cards" id="role-cards">
-              <label class="role-card">
-                <input type="radio" name="rp-role" value="volunteer" checked>
-                <span class="role-tag">A</span>
-                <strong>Fair volunteer</strong>
-                <small>You are helping at the debate society stall. You know the campus well.</small>
-              </label>
-              <label class="role-card">
-                <input type="radio" name="rp-role" value="newcomer">
-                <span class="role-tag">B</span>
-                <strong>First-year student</strong>
-                <small>You are new too. You are both looking for a club to join.</small>
-              </label>
-              <label class="role-card">
-                <input type="radio" name="rp-role" value="host">
-                <span class="role-tag">C</span>
-                <strong>Club organiser</strong>
-                <small>You are welcoming visitors and introducing members to each other.</small>
-              </label>
-            </div>
-            <div class="rp-setup-row">
-              <div>
-                <label for="rp-name">Your character name</label>
-                <input id="rp-name" maxlength="24" placeholder="Tania" autocomplete="off">
-              </div>
-              <div>
-                <label for="rp-voice">Nila’s speaking voice</label>
-                <select id="rp-voice">
-                  <option value="female">Girl / woman voice</option>
-                  <option value="male">Boy / man voice</option>
-                </select>
-              </div>
-            </div>
-            <button class="primary-button" id="rp-begin">Begin the 15-minute role-play <span>↗</span></button>
-            <p class="rp-note">The timer starts with round 1 and can be paused. Rounds are targets, not strict cut-offs — finish your line before you move on.</p>
-          </div>
-
-          <div class="rp-player" id="rp-player" hidden>
-            <div class="rp-timer">
-              <div class="rp-clock"><strong id="rp-clock">15:00</strong><span>practice time left</span></div>
-              <div class="rp-meta">
-                <span id="rp-phase">Guided practice</span>
-                <span id="rp-round-label">Round 1 of 4</span>
-                <span id="rp-window">0:00–3:00</span>
-              </div>
-              <button class="outline-button rp-pause" id="rp-pause" type="button">Pause</button>
-              <div class="rp-bar"><i id="rp-bar"></i></div>
-            </div>
-            <p class="rp-scene" id="rp-scene"></p>
-            <div class="rp-dialogue" id="rp-dialogue" aria-live="polite"></div>
-            <h3 class="rp-task" id="rp-task"></h3>
-            <ul class="rp-criteria" id="rp-criteria" aria-label="What this round is scored on"></ul>
-            <label class="field-label" for="rp-answer" id="rp-label">Your line</label>
-            <textarea id="rp-answer" rows="3" maxlength="240"></textarea>
-            <div class="starter-list" id="rp-starters"></div>
-            <div class="rp-actions">
-              <button class="primary-button" id="rp-submit">Say your line <span>↗</span></button>
-              <button class="outline-button" id="rp-model">Show a model line</button>
-              <button class="outline-button" id="rp-say" hidden>Hear that again ♫</button>
-            </div>
-            <div class="assessment-result" id="rp-feedback" aria-live="polite"></div>
-            <p class="voice-status" id="rp-voice-status" aria-live="polite"></p>
-          </div>
-
-          <div class="rp-report" id="rp-report" hidden>
-            <h3>Role-play report</h3>
-            <p id="rp-report-summary"></p>
-            <div id="rp-report-body"></div>
-            <div class="assessment-actions">
-              <button class="primary-button" id="rp-again">Run it again</button>
-              <button class="outline-button" id="rp-copy">Copy transcript</button>
-            </div>
-            <p class="rp-copy-note" id="rp-copy-note" aria-live="polite"></p>
-          </div>
-        </section>
-
-        <section class="lesson-panel" id="review" data-stage="5">
-          <div class="panel-heading">
-            <span class="stage-number">5</span>
-            <div><p class="panel-kicker">Stage 5 · Review · 1 minute</p><h2>Check what you noticed.</h2></div>
-            <span class="stage-state">CHECK UNDERSTANDING</span>
-          </div>
-          <p class="panel-intro">Three quick decisions about the conversation you just had. This is review, not a test — you get the reason for each answer.</p>
-          <fieldset class="quiz-question">
-            <legend>1. Nila says: “I don’t know anyone here yet.” What is the kindest reply?</legend>
-            <label><input type="radio" name="r1" value="a"> “That’s your problem.”</label>
-            <label><input type="radio" name="r1" value="b"> “Would you like to come to the first meeting with us?”</label>
-            <label><input type="radio" name="r1" value="c"> “Everyone feels like that.”</label>
-          </fieldset>
-          <fieldset class="quiz-question">
-            <legend>2. Which line introduces two people clearly?</legend>
-            <label><input type="radio" name="r2" value="a"> “Nila, this is my friend Rafi. Rafi, this is Nila.”</label>
-            <label><input type="radio" name="r2" value="b"> “You two talk.”</label>
-            <label><input type="radio" name="r2" value="c"> “This is a person from my class.”</label>
-          </fieldset>
-          <fieldset class="quiz-question">
-            <legend>3. Which line closes the conversation warmly?</legend>
-            <label><input type="radio" name="r3" value="a"> “Okay, bye.”</label>
-            <label><input type="radio" name="r3" value="b"> “What?”</label>
-            <label><input type="radio" name="r3" value="c"> “It was lovely to meet you, Nila. See you Saturday!”</label>
-          </fieldset>
-          <div class="assessment-actions">
-            <button class="primary-button" id="review-check">Check my answers <span>↗</span></button>
-          </div>
-          <div class="assessment-result" id="review-feedback" aria-live="polite"></div>
-        </section>
-
-        <section class="lesson-panel" id="check" data-stage="6">
-          <div class="panel-heading">
-            <span class="stage-number">6</span>
-            <div><p class="panel-kicker">Stage 6 · Feedback · 2 minutes</p><h2>Show what you know.</h2></div>
-            <span class="stage-state">FEEDBACK</span>
-          </div>
-          <p class="panel-intro">Two quick decisions, then one written introduction. Together with your role-play report, this is your evidence of learning today.</p>
-          <fieldset class="quiz-question">
-            <legend>1. You meet a student at the club fair. Which is the most welcoming opener?</legend>
-            <label><input type="radio" name="quiz1" value="a"> “Tell me your name and department.”</label>
-            <label><input type="radio" name="quiz1" value="b"> “Hi, I’m Tania. What brought you to the fair?”</label>
-            <label><input type="radio" name="quiz1" value="c"> Say nothing until they speak first.</label>
-          </fieldset>
-          <fieldset class="quiz-question">
-            <legend>2. You want to introduce your friend Samira to Nila. Choose a helpful line:</legend>
-            <label><input type="radio" name="quiz2" value="a"> “Nila, this is Samira. Samira, Nila is exploring the debate club.”</label>
-            <label><input type="radio" name="quiz2" value="b"> “You two talk.”</label>
-            <label><input type="radio" name="quiz2" value="c"> “This is a girl from my class.”</label>
-          </fieldset>
-          <label class="field-label" for="exit-answer">3. Write two lines: introduce yourself, then invite the other person to speak.</label>
-          <textarea id="exit-answer" rows="3" maxlength="240" placeholder="Hi, I’m… I’m interested in… What about you?"></textarea>
-          <div class="assessment-actions">
-            <button id="submit-assessment" class="primary-button">Check my learning <span>↗</span></button>
-            <button class="outline-button" id="reset-lesson">Reset lesson</button>
-          </div>
-          <div class="assessment-result" id="assessment-result" aria-live="polite"></div>
-          <div class="completion-stamp" id="completion-stamp" hidden>
-            <span>✳</span>
-            <div><strong>Lesson complete</strong><p>You practised language that helps people feel welcome.</p></div>
-          </div>
-        </section>
-      </div>
-    </div>
-  </main>
-
-  <footer class="lesson-footer">
-    <span>FluentSpring · C6 Introducing Yourself and Others</span>
-    <span>Speak to connect. Listen to include.</span>
-  </footer>
-  <script defer src="lesson.js"></script>
-</body>
-</html>
+// Guided conversation teacher with optional secure backend integration.
+const teacherPrompts=[
+"Hello! I'm Sadia. I think we're on the same flight — I'm 24B, right next to you. What's your name?",
+"Nice to meet you! Are you travelling for study or for fun?",
+"That sounds interesting. Is this your first flight?",
+"It's been lovely talking with you. Would you like to grab a coffee before boarding?"
+];
+let teacherStep=0,teacherHistory=[];
+function addBubble(who,msg){const log=document.getElementById("chatLog");const div=document.createElement("div");div.className="bubble "+who;div.textContent=msg;log.appendChild(div);log.scrollTop=log.scrollHeight}
+function resetTeacher(){
+ teacherStep=0;teacherHistory=[];document.getElementById("chatLog").innerHTML="";
+ document.getElementById("teacherFeedback").textContent="Try answering in a complete sentence. You can make mistakes here!";
+ addBubble("teacher","Hi! I'm your FluentSpring English tutor. We're two passengers waiting at gate 7. What would you like to talk about today?");
+}
+function localTeacherReply(message){
+ const m=message.toLowerCase();
+ let correction="";
+ if(/^(i am study|i study english literature student)/i.test(m)) correction="A more natural sentence could be: “I am studying engineering.”";
+ else if(m.length<12) correction="Try adding one more detail to make your answer clearer.";
+ else if(!/[.!?]$/.test(message.trim())) correction="Your meaning is clear. Add punctuation when you write the sentence.";
+ else correction="Your answer is clear. Nice work!";
+ const replies=[
+ "That's a friendly introduction! "+(message.match(/my name is|i'm|i am/i)?"It's nice to meet you.":"You can also tell me your name.")+" "+teacherPrompts[Math.min(teacherStep+1,teacherPrompts.length-1)],
+ "I like that answer. Can you tell me a little more? "+teacherPrompts[Math.min(teacherStep+1,teacherPrompts.length-1)],
+ "Thanks for sharing! Asking a follow-up question helps keep a conversation going. "+teacherPrompts[Math.min(teacherStep+1,teacherPrompts.length-1)],
+ "That sounds like a good plan. Remember to end politely: “See you around!” You've completed this practice conversation."
+ ];
+ return {reply:replies[Math.min(teacherStep,3)],feedback:correction};
+}
+const FLUENTSPRING_API_URL = window.FLUENTSPRING_API_URL || "/api/tutor";
+let chatBusy = false;
+function setTutorStatus(message){document.getElementById("aiStatus").textContent=message;}
+async function checkTutorHealth(){
+ try{
+  const base=FLUENTSPRING_API_URL.replace(/\/api\/tutor\/?$/,"");
+  const r=await fetch((base||"")+"/api/health",{method:"GET"});
+  if(!r.ok)throw new Error("Unavailable");
+  const d=await r.json();
+  setTutorStatus(d.aiReady?"Live AI tutor connected.":"Backend is online, but the AI service is not configured yet.");
+ }catch(e){setTutorStatus("AI tutor is not connected yet. The site can still be explored; deploy the backend and configure its server secret to enable live replies.");}
+}
+async function sendTeacherMessage(){
+ const input=document.getElementById("chatInput"),message=input.value.trim();
+ if(!message||chatBusy)return;
+ if(message.length>1200){setTutorStatus("Please keep each message under 1,200 characters.");return;}
+ input.value="";addBubble("student",message);teacherHistory.push({role:"user",content:message});
+ chatBusy=true;setTutorStatus("Your tutor is thinking…");
+ const sendButton=document.querySelector('#teacher button[onclick="sendTeacherMessage()"]');
+ if(sendButton){sendButton.disabled=true;sendButton.textContent="Thinking…";}
+ try{
+  const response=await fetch(FLUENTSPRING_API_URL,{
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({messages:teacherHistory.slice(-12),level:"beginner"})
+  });
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.error||"The tutor could not respond right now.");
+  const reply=data.reply||"Let's keep practising!";
+  addBubble("teacher",reply);
+  teacherHistory.push({role:"assistant",content:reply});
+  const feedback=[];
+  if(data.correction)feedback.push("Correction: "+data.correction);
+  if(data.explanation)feedback.push("Why: "+data.explanation);
+  if(data.vocabulary&&data.vocabulary.length)feedback.push("Vocabulary upgrade: "+data.vocabulary.map(v=>v.word+" — "+v.meaning+(v.example?" Example: "+v.example:"")).join("; "));
+  if(data.naturalAlternative)feedback.push("More natural: "+data.naturalAlternative);
+  document.getElementById("teacherFeedback").textContent=feedback.join("\n\n")||"Good practice. Keep the conversation going!";
+  setTutorStatus("Live AI tutor · Replies may occasionally make mistakes, so use the explanations as learning guidance.");
+  teacherStep=Math.min(teacherStep+1,3);
+  if(teacherStep===3)badge("speaker");
+ }catch(err){
+  const fallback=localTeacherReply(message);
+  addBubble("teacher","I couldn't reach the live AI tutor just now. We can continue with the practice demo. "+fallback.reply);
+  document.getElementById("teacherFeedback").textContent=fallback.feedback;
+  setTutorStatus("Live AI connection unavailable. Check your internet connection or try again later.");
+ }finally{
+  chatBusy=false;if(sendButton){sendButton.disabled=false;sendButton.textContent="Send";}
+ }
+}
+function voiceToChat(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){toast("Voice input is not supported in this browser.");return}
+ const rec=new SR();rec.lang="en-US";rec.interimResults=false;
+ rec.onresult=e=>{document.getElementById("chatInput").value=e.results[0][0].transcript;sendTeacherMessage()};
+ rec.onerror=()=>toast("I couldn't hear that. Please try again.");rec.start();
+}
+function changeTextSize(delta){document.body.classList.toggle("large-text",delta>0);if(delta<0)document.body.classList.remove("large-text");}
+function toggleContrast(){const on=document.body.classList.toggle("high-contrast");document.getElementById("contrastBtn").setAttribute("aria-pressed",String(on));}
+function toggleMotion(){const on=document.body.classList.toggle("reduce-motion");document.getElementById("motionBtn").setAttribute("aria-pressed",String(on));}
+function initNewFeatures(){
+ drawListening();
+ resetTeacher();
+ checkTutorHealth();
+ drawStory();
+ paintMissionClock();
+}
+initNewFeatures();
+render();
+</script></body></html>

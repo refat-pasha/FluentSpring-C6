@@ -72,8 +72,7 @@ const rounds = [
 ];
 let stage = 0;
 let lastPartnerLine = '';
-let stageReply = '';
-const rp = { active: false, round: 0, awaiting: false, remaining: 900, timer: undefined, running: false, name: 'Tania', lines: [], results: [] };
+const rp = { active: false, round: 0, awaiting: false, remaining: 900, timer: undefined, running: false, timedOut: false, name: 'Tania', lines: [], results: [] };
 function setNotice(selector, message) { const node = $(selector); if (node)
     node.textContent = message; }
 function extractName(text) {
@@ -125,6 +124,7 @@ function rpStart() {
     rp.round = 0;
     rp.awaiting = false;
     rp.remaining = 900;
+    rp.timedOut = false;
     rp.lines = [];
     rp.results = [];
     $('#rp-setup').hidden = true;
@@ -171,8 +171,11 @@ function rpRender() {
     lastPartnerLine = round.line;
     speak(round.line, rpVoice(), '#rp-voice-status');
     $('#rp-say').hidden = false;
+    answer.focus();
 }
 function rpStartTimer() {
+    if (rp.timedOut)
+        return;
     rp.running = true;
     rp.timer = window.setInterval(rpTick, 1000);
     $('#rp-pause').textContent = 'Pause';
@@ -194,7 +197,8 @@ function rpTick() {
     rpPaintClock();
     if (rp.remaining === 0) {
         rpStopTimer();
-        setNotice('#rp-feedback', 'Time is up. Finish your final line, then read your role-play report.');
+        rp.timedOut = true;
+        setNotice('#rp-feedback', 'Time is up. Your lines still count — finish this round, then read your role-play report.');
         $('#rp-pause').textContent = 'Paused';
     }
 }
@@ -258,9 +262,21 @@ function rpFinish() {
     $('#rp-report-summary').textContent = `${rp.name}, you scored ${total}/12 across four rounds in ${formatClock(900 - rp.remaining)}. ${band}`;
     const body = $('#rp-report-body');
     body.replaceChildren();
-    rp.results.forEach(item => {
-        if (!item)
+    if (!rp.results.length) {
+        const empty = document.createElement('p');
+        empty.className = 'rp-next';
+        empty.textContent = 'No lines were written this run. Press “Run it again” and write at least one line in round 1.';
+        body.append(empty);
+    }
+    rounds.forEach((round, index) => {
+        const item = rp.results[index];
+        if (!item) {
+            const skipped = document.createElement('article');
+            skipped.className = 'rp-score-card';
+            skipped.textContent = `${round.label}: no line written.`;
+            body.append(skipped);
             return;
+        }
         const card = document.createElement('article');
         card.className = 'rp-score-card';
         const head = document.createElement('div');
@@ -295,6 +311,7 @@ function rpReset() {
     rp.round = 0;
     rp.awaiting = false;
     rp.remaining = 900;
+    rp.timedOut = false;
     rp.lines = [];
     rp.results = [];
     rpPaintClock();
@@ -438,6 +455,8 @@ function initLesson() {
     $('#rp-say').addEventListener('click', () => lastPartnerLine ? speak(lastPartnerLine, rpVoice(), '#rp-voice-status') : setNotice('#rp-voice-status', 'Start the role-play to hear a line.'));
     $('#rp-pause').addEventListener('click', () => {
         const button = $('#rp-pause');
+        if (rp.timedOut)
+            return;
         if (rp.running) {
             rpStopTimer();
             button.textContent = 'Resume';
