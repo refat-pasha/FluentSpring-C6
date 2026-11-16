@@ -35,9 +35,24 @@ Return ONLY valid JSON with these keys:
 Give at most 3 vocabulary items. If the learner's sentence is already correct, say so kindly and focus on extending the conversation. Do not invent errors.
 `;
 
+const characterProfiles = {
+  nafisa: "You are Nafisa, a friendly new university student. Speak like a peer who is discovering campus life. Invite the learner into natural introductions and everyday student conversations.",
+  polok: "You are Polok, an enthusiastic university club organiser. Discuss club activities, events, membership, teamwork and campus plans in a welcoming way.",
+  rumin: "You are Ms. Rumin Farhana, a patient English-speaking coach. Guide the learner with supportive prompts, useful vocabulary and clear language feedback. Stay conversational, not lecture-like.",
+  apa: "You are Apa, a curious and friendly international student. Discuss orientation, university life, cultural exchange and settling into a new place respectfully."
+};
+const sceneProfiles = {
+  campus: "The scene is a campus welcome day.", club: "The scene is a university club fair.",
+  cafe: "The scene is a campus cafe; keep ordering role-play age-appropriate and non-alcoholic.",
+  international: "The scene is an international student orientation.",
+  coaching: "The scene is an English coaching session."
+};
+
 app.post("/api/tutor", async (req, res) => {
   if (!OPENAI_API_KEY) return res.status(503).json({ error: "The AI tutor has not been configured by the site administrator yet." });
   const messages = req.body?.messages;
+  const character = characterProfiles[req.body?.character] ? req.body.character : "nafisa";
+  const scene = sceneProfiles[req.body?.scene] ? req.body.scene : "campus";
   if (!Array.isArray(messages) || messages.length === 0 || messages.length > 12)
     return res.status(400).json({ error: "Please send a conversation with up to 12 recent messages." });
   const cleanMessages = [];
@@ -55,7 +70,7 @@ app.post("/api/tutor", async (req, res) => {
       method: "POST",
       headers: { "Authorization": `Bearer ${OPENAI_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: OPENAI_MODEL, instructions: tutorInstructions,
+        model: OPENAI_MODEL, instructions: tutorInstructions + "\n\nCHARACTER ROLE: " + characterProfiles[character] + "\nSCENE: " + sceneProfiles[scene] + " Stay in character without claiming to be a real person. Keep the conversation interactive and ask one relevant follow-up question at a time.",
         input: cleanMessages.map(m => ({ role: m.role, content: m.content })),
         text: { format: { type: "json_object" } },
         max_output_tokens: 700

@@ -32,6 +32,9 @@ The tutor also checks `https://YOUR-BACKEND-HOST/api/health` automatically. Upda
 4. Serve `public/` and the API from the same origin, or configure the frontend URL as above.
 
 ## AI tutor features
+- Virtual conversation world with four selectable characters: Nafisa, Polok, Ms. Rumin Farhana, and Apa.
+- Five role-play settings: campus welcome day, club fair, campus café, international orientation, and English coaching.
+- Character and scene choices are sent to the secure backend so the live tutor can stay in role.
 - Open-ended everyday English conversation.
 - Sentence correction and clear grammar explanations.
 - Up to three vocabulary suggestions with meanings and examples.

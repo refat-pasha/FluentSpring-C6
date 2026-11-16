@@ -184,16 +184,24 @@ body.high-contrast .garden{display:none}
 </div>
 </section>
 <section id="teacher">
-<div class="head"><div><span class="eyebrow">YOUR FRIENDLY SPEAKING PARTNER</span><h2>Conversation Teacher 🤖</h2><p>Practise natural English in a relaxed, supportive chat.</p></div><span class="tag">Interactive role-play</span></div>
+<div class="head"><div><span class="eyebrow">VIRTUAL CONVERSATION WORLD</span><h2>Conversation Teacher 🤖</h2><p>Choose a character and a place. Each person has a different role-play style and conversation goal.</p></div><span class="tag">Interactive role-play</span></div>
 <div class="panel">
-<div class="row" style="justify-content:space-between;align-items:center;flex-wrap:wrap"><div><b>Today's situation: Meeting a fellow traveller at the boarding gate</b><p class="muted">Answer in English. You can type or use your microphone.</p></div><button class="btn secondary" onclick="resetTeacher()">Restart chat ↻</button></div>
-<div id="chatLog" class="chatlog" role="log" aria-label="Conversation with your English tutor" aria-live="polite" aria-relevant="additions"></div>
+<h3>🌍 Enter the FluentSpring conversation world</h3><p class="muted">Pick a character and a scene, then chat. Works with the live AI tutor or in practice mode without one.</p>
+<div class="character-grid" role="group" aria-label="Choose an AI character">
+<button class="character-card selected" data-character="afia" onclick="selectCharacter('afia')"><span class="avatar-big" aria-hidden="true">👩‍🎓</span><strong>Afia</strong><small>New university student</small></button>
+<button class="character-card" data-character="polok" onclick="selectCharacter('polok')"><span class="avatar-big" aria-hidden="true">🧑‍💼</span><strong>Polok</strong><small>University club organiser</small></button>
+<button class="character-card" data-character="rumin" onclick="selectCharacter('rumin')"><span class="avatar-big" aria-hidden="true">👩‍🏫</span><strong>Ms. Rumin Farhana</strong><small>English-speaking coach</small></button>
+<button class="character-card" data-character="apa" onclick="selectCharacter('apa')"><span class="avatar-big" aria-hidden="true">🧕</span><strong>Apa</strong><small>International student</small></button>
+</div>
+<div class="world-banner"><div class="world-icon" id="worldIcon">🏫</div><div><b id="worldTitle">Campus welcome day</b><p class="muted" id="worldDescription">Meet a new classmate and introduce yourself.</p></div></div>
+<label for="worldScene"><b>Choose your conversation place</b></label><select id="worldScene" onchange="changeScene()" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:12px;margin:7px 0 12px"><option value="campus">🏫 Campus welcome day</option><option value="club">🎪 University club fair</option><option value="cafe">☕ Campus café</option><option value="international">🌐 International student orientation</option><option value="coaching">📚 English coaching session</option></select>
+<div class="row" style="justify-content:space-between;align-items:center;flex-wrap:wrap"><div class="chat-persona"><span class="avatar-big" id="activeAvatar" aria-hidden="true">👩‍🎓</span><div><b id="activeName">Afia</b><p class="muted" id="activeRole">New university student</p></div></div><button class="btn secondary" onclick="resetTeacher()">Restart scene ↻</button></div>
+<div id="chatLog" class="chatlog" role="log" aria-label="Conversation with your selected character" aria-live="polite" aria-relevant="additions"></div>
 <div class="row" style="gap:8px;align-items:stretch"><input id="chatInput" type="text" aria-label="Your message to the English tutor" placeholder="Type your answer in English…" style="flex:1;min-width:160px;padding:12px;border:1px solid var(--line);border-radius:12px" onkeydown="if(event.key==='Enter')sendTeacherMessage()"><button class="btn" onclick="sendTeacherMessage()">Send</button><button class="btn secondary" onclick="voiceToChat()" aria-label="Speak your answer using microphone" title="Speak your answer">🎙️</button></div>
 <div class="lesson" style="margin-top:14px"><b>Teacher feedback</b><p id="teacherFeedback">I'll help you make your sentences clearer and more natural.</p></div>
-<div class="lesson"><b>Live AI tutor</b><p class="muted">When the site is deployed with its secure backend, this chat gives open-ended replies, grammar corrections, vocabulary upgrades and natural alternatives. Your API key stays on the server, never in this page.</p><p class="muted" id="aiStatus" role="status" aria-live="polite">Checking AI tutor connection…</p><p class="muted">You can use the text chat without a microphone. Voice input is optional.</p></div>
+<div class="lesson"><b>Live AI tutor</b><p class="muted">When the site is deployed with its secure backend, this chat gives open-ended replies, grammar corrections, vocabulary upgrades and natural alternatives — in character. Your API key stays on the server, never in this page.</p><p class="muted" id="aiStatus" role="status" aria-live="polite">Checking AI tutor connection…</p><p class="muted">You can use the text chat without a microphone. Voice input is optional.</p></div>
 </div>
-</section>
-<section id="progress">
+</section><section id="progress">
 <div class="head"><div><span class="eyebrow">YOUR LEARNING JOURNEY</span><h2>Look how far you've come! 🏆</h2><p>Progress grows with every lesson and every try.</p></div></div>
 <div class="panel"><div class="stats"><div class="stat"><div class="ico">⚡</div><div><strong id="xp3">0 XP</strong><span class="muted">Total XP</span></div></div><div class="stat"><div class="ico">🏅</div><div><strong id="badge3">0</strong><span class="muted">Badges</span></div></div><div class="stat"><div class="ico">🎯</div><div><strong id="done3">0</strong><span class="muted">Activities</span></div></div><div class="stat"><div class="ico">🌱</div><div><strong id="level3">Starter</strong><span class="muted">Current level</span></div></div></div>
 <h3>Next level progress</h3><div class="progressline"><span id="levelLabel">Starter</span><b id="xpLabel">0 / 100 XP</b></div><div class="bar"><span id="levelBar"></span></div>
@@ -327,36 +335,43 @@ function answerListening(i){
 }
 function nextListening(){listeningIndex=(listeningIndex+1)%listeningItems.length;drawListening()}
 
-// Guided conversation teacher with optional secure backend integration.
-const teacherPrompts=[
-"Hello! I'm Afia. I think we're on the same flight — I'm 24B, right next to you. What's your name?",
-"Nice to meet you! Are you travelling for study or for fun?",
-"That sounds interesting. Is this your first flight?",
-"It's been lovely talking with you. Would you like to grab a coffee before boarding?"
-];
-let teacherStep=0,teacherHistory=[];
-function addBubble(who,msg){const log=document.getElementById("chatLog");const div=document.createElement("div");div.className="bubble "+who;div.textContent=msg;log.appendChild(div);log.scrollTop=log.scrollHeight}
+// Character-driven virtual conversation world with persona-aware practice mode.
+const characters={
+ afia:{name:"Afia",role:"New university student",avatar:"👩‍🎓",greeting:"Hi! I'm Afia. I'm new here and still getting to know the campus. What's your name?"},
+ polok:{name:"Polok",role:"University club organiser",avatar:"🧑‍💼",greeting:"Hello! I'm Polok, one of the university club organisers. Are you interested in joining a club?"},
+ rumin:{name:"Ms. Rumin Farhana",role:"English-speaking coach",avatar:"👩‍🏫",greeting:"Good day! I'm Ms. Rumin Farhana. Let's practise speaking naturally. What would you like to improve today?"},
+ apa:{name:"Apa",role:"International student",avatar:"🧕",greeting:"Hey! I'm Apa, an international student. Is this your first time at an international student event?"}
+};
+const scenes={campus:{title:"Campus welcome day",icon:"🏫",description:"Meet a new classmate and introduce yourself."},club:{title:"University club fair",icon:"🎪",description:"Ask about clubs, activities, membership and events."},cafe:{title:"Campus café",icon:"☕",description:"Order a drink, make a choice and enjoy a friendly chat."},international:{title:"International student orientation",icon:"🌐",description:"Welcome a visitor and talk about university life and culture."},coaching:{title:"English coaching session",icon:"📚",description:"Practise fluency, vocabulary and confident everyday speaking."}};
+let activeCharacter="afia";
+function selectCharacter(id){if(!characters[id])return;activeCharacter=id;document.querySelectorAll('.character-card').forEach(b=>b.classList.toggle('selected',b.dataset.character===id));const c=characters[id];document.getElementById('activeAvatar').textContent=c.avatar;document.getElementById('activeName').textContent=c.name;document.getElementById('activeRole').textContent=c.role;resetTeacher();}
+function changeScene(){const scene=scenes[document.getElementById('worldScene').value]||scenes.campus;document.getElementById('worldTitle').textContent=scene.title;document.getElementById('worldIcon').textContent=scene.icon;document.getElementById('worldDescription').textContent=scene.description;resetTeacher();}
 function resetTeacher(){
  teacherStep=0;teacherHistory=[];document.getElementById("chatLog").innerHTML="";
  document.getElementById("teacherFeedback").textContent="Try answering in a complete sentence. You can make mistakes here!";
- addBubble("teacher","Hi! I'm your FluentSpring English tutor. We're two passengers waiting at gate 7. What would you like to talk about today?");
+ const c=characters[activeCharacter];const scene=scenes[document.getElementById("worldScene").value]||scenes.campus;
+ addBubble("teacher",c.greeting+" We're at "+scene.title+". "+scene.description+" I'll help you practise naturally.");
 }
 function localTeacherReply(message){
  const m=message.toLowerCase();
  let correction="";
- if(/^(i am study|i study english literature student)/i.test(m)) correction="A more natural sentence could be: “I am studying engineering.”";
+ if(/^(i am study|i study english literature student)/i.test(m)) correction="A more natural sentence could be: “I am studying English literature.”";
  else if(m.length<12) correction="Try adding one more detail to make your answer clearer.";
  else if(!/[.!?]$/.test(message.trim())) correction="Your meaning is clear. Add punctuation when you write the sentence.";
  else correction="Your answer is clear. Nice work!";
- const replies=[
- "That's a friendly introduction! "+(message.match(/my name is|i'm|i am/i)?"It's nice to meet you.":"You can also tell me your name.")+" "+teacherPrompts[Math.min(teacherStep+1,teacherPrompts.length-1)],
- "I like that answer. Can you tell me a little more? "+teacherPrompts[Math.min(teacherStep+1,teacherPrompts.length-1)],
- "Thanks for sharing! Asking a follow-up question helps keep a conversation going. "+teacherPrompts[Math.min(teacherStep+1,teacherPrompts.length-1)],
- "That sounds like a good plan. Remember to end politely: “See you around!” You've completed this practice conversation."
- ];
- return {reply:replies[Math.min(teacherStep,3)],feedback:correction};
+ const scene=scenes[document.getElementById("worldScene").value]||scenes.campus;
+ const personaReplies={
+  afia:["That's a friendly start! I'm still learning where everything is. Do you know a good club to join?","Nice! I'm also exploring campus life. What do you enjoy studying?","Thanks for sharing! Is this your first time at "+scene.title+"?"],
+  polok:["Welcome! As a club organiser I meet new students every day. Which activity sounds fun to you?","Great answer! Our clubs are looking for members this semester. What are you interested in?","You'd fit right in! Would you like to hear about our upcoming events?"],
+  rumin:["Well done — that was a complete sentence. Now try adding one more detail about yourself.","Good. Let's stretch it: describe a friend of yours and how you met them.","Excellent progress! For the last step, close politely: invite me to continue the conversation later."],
+  apa:["Me too — everything feels new! Where are you from originally?","That sounds lovely. What do students usually do here in their free time?","Thank you! Let's keep in touch — how do people usually say goodbye politely here?"]
+ };
+ const replies=personaReplies[activeCharacter]||personaReplies.afia;
+ return {reply:replies[Math.min(teacherStep,replies.length-1)],feedback:correction};
 }
 const FLUENTSPRING_API_URL = window.FLUENTSPRING_API_URL || "/api/tutor";
+let teacherStep=0,teacherHistory=[];
+function addBubble(who,msg){const log=document.getElementById("chatLog");const div=document.createElement("div");div.className="bubble "+who;div.textContent=msg;log.appendChild(div);log.scrollTop=log.scrollHeight}
 let chatBusy = false;
 function setTutorStatus(message){document.getElementById("aiStatus").textContent=message;}
 async function checkTutorHealth(){
@@ -379,7 +394,7 @@ async function sendTeacherMessage(){
  try{
   const response=await fetch(FLUENTSPRING_API_URL,{
    method:"POST",headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({messages:teacherHistory.slice(-12),level:"beginner"})
+   body:JSON.stringify({messages:teacherHistory.slice(-12),level:"beginner",character:activeCharacter,scene:document.getElementById("worldScene").value})
   });
   const data=await response.json();
   if(!response.ok)throw new Error(data.error||"The tutor could not respond right now.");
@@ -397,7 +412,7 @@ async function sendTeacherMessage(){
   if(teacherStep===3)badge("speaker");
  }catch(err){
   const fallback=localTeacherReply(message);
-  addBubble("teacher","I couldn't reach the live AI tutor just now. We can continue with the practice demo. "+fallback.reply);
+  addBubble("teacher","(Practice mode) "+fallback.reply);
   document.getElementById("teacherFeedback").textContent=fallback.feedback;
   setTutorStatus("Live AI connection unavailable. Check your internet connection or try again later.");
  }finally{
